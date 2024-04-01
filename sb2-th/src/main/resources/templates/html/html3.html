@@ -1,5 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script>
     let html3 = {
         init: function () {
@@ -20,13 +18,11 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="c" items="${custs}">
-            <tr>
-                <td><a href="<c:url value="/html/get"/>?id=${c.id}">${c.id}</a></td>
-                <td>${c.pwd}</td>
-                <td>${c.name}</td>
-            </tr>
-        </c:forEach>
+        <tr th:each="c: ${custs}">
+            <td><a th:href="@{/html/get(id=${c.id})}" th:text="${c.id}"></a></td>
+            <td th:text="${c.pwd}"></td>
+            <td th:text="${c.name}"></td>
+        </tr>
         </tbody>
     </table>
 </div>
