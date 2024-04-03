@@ -12,10 +12,10 @@
     <p>CUST</p>
     <ul class="nav nav-pills flex-column">
         <li class="nav-item">
-            <a class="nav-link" href="<c:url value="/cust/cust1"/>">CUST1</a>
+            <a class="nav-link" href="<c:url value="/cust/cust1"/>">Add</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="<c:url value="/cust/cust2"/>">CUST2</a>
+            <a class="nav-link" href="<c:url value="/cust/cust2"/>">Get</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="<c:url value="/cust/cust3"/>">CUST3</a>

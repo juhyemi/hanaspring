@@ -20,7 +20,11 @@ class SelectOneTests {
     @Test
     void contextLoads() throws Exception {
         try {
-            custService.get("id98");
+            CustDto custDto=null;
+            custDto=custService.get("id00");
+            if(custDto==null){
+                log.info("------------NULL-------------");
+            }
             log.info("------------OK-------------");
         } catch (Exception e) {
             if(e instanceof SQLException){

@@ -1,7 +1,9 @@
 package com.hana.controller;
 
 import com.hana.app.data.dto.CustDto;
+import com.hana.app.service.CustService;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +15,9 @@ import java.util.HashMap;
 
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 public class MainController {
+    final CustService custService;
     @RequestMapping("/")
     String main(){
         return "index";
@@ -37,21 +41,31 @@ public class MainController {
     }
     @RequestMapping("/loginimpl")
     String loginimpl(Model model, @RequestParam("id") String id, @RequestParam("pwd") String pwd, HttpSession httpSession){
-        model.addAttribute("center","login");
-        if(id.equals("qqq") && pwd.equals("111")){
-            //httpSession.setMaxInactiveInterval(80000); //셋팅 안하면 15분, 은행에서 세션 만료 시간 나오는거 이걸로 설정
-            log.info(id);
+        CustDto custDto;
+        try {
+            custDto = custService.get(id);
+            if(custDto==null){
+                throw new Exception();
+            }
+            if(!custDto.getPwd().equals(pwd)){
+                throw new Exception();
+            }
             httpSession.setAttribute("id",id);
-        }else{
+        } catch (Exception e) {
+            //throw new RuntimeException(e);
             model.addAttribute("center", "loginfail");
         }
         return "index";
     }
     @RequestMapping("/registerimpl")
-    String registerimpl(CustDto custDto, HttpSession httpSession){
-        log.info(custDto.getId());
-        log.info(custDto.getName());
-        httpSession.setAttribute("id",custDto.getId());
+    String registerimpl(Model model, CustDto custDto, HttpSession httpSession){
+        try {
+            custService.add(custDto);
+            httpSession.setAttribute("id",custDto.getId());
+        } catch (Exception e) {
+            //throw new RuntimeException(e);
+            model.addAttribute("center", "registerfail");
+        }
         return "index";
     }
 

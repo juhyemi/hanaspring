@@ -1,6 +1,8 @@
 package com.hana.controller;
 
 import com.hana.app.data.dto.CustDto;
+import com.hana.app.service.CustService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +13,9 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/html")
+@RequiredArgsConstructor
 public class HtmlController {
+    final CustService custService;
     String dir = "html/";
     @RequestMapping("/")
     public String main(Model model){
@@ -34,16 +38,15 @@ public class HtmlController {
     @RequestMapping("/html3")
     public String html3(Model model){
         //Data를 DB에서 조회한다.
-        List<CustDto> ls = new ArrayList<>();
-        ls.add(new CustDto("id01", "pwd01","james"));
-        ls.add(new CustDto("id02", "pwd01","james"));
-        ls.add(new CustDto("id03", "pwd01","james"));
-        ls.add(new CustDto("id04", "pwd01","james"));
-        ls.add(new CustDto("id05", "pwd01","james"));
-
-        model.addAttribute("custs",ls);
-        model.addAttribute("left",dir+"left");
-        model.addAttribute("center",dir+"html3");
+        List<CustDto> ls = null;
+        try {
+            ls = custService.get();
+            model.addAttribute("custs",ls);
+            model.addAttribute("left",dir+"left");
+            model.addAttribute("center",dir+"html3");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         return "index";
     }
     @RequestMapping("/get")
