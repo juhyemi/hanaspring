@@ -1,0 +1,18 @@
+package com.hana.app.frame;
+
+
+import java.util.List;
+
+public interface HanaRepository<K,V> {
+    /**
+     * 2024.3.13
+     * JMLEE
+     * @param v: CustDto
+     * @return int
+     */
+    int insert(V v) throws Exception;
+    int delete(K k) throws Exception;
+    int update(V v) throws Exception;
+    V selectOne(K k) throws Exception;
+    List<V> select() throws Exception;
+}

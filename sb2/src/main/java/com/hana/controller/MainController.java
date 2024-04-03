@@ -40,6 +40,7 @@ public class MainController {
         model.addAttribute("center","login");
         if(id.equals("qqq") && pwd.equals("111")){
             //httpSession.setMaxInactiveInterval(80000); //셋팅 안하면 15분, 은행에서 세션 만료 시간 나오는거 이걸로 설정
+            log.info(id);
             httpSession.setAttribute("id",id);
         }else{
             model.addAttribute("center", "loginfail");
