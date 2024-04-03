@@ -98,3 +98,31 @@ let register = {
         $('#register_form').submit();
     }
 };
+
+let registerAddr= {
+    init:function(url){
+        this.url = url;
+        $('#register_form>button').click(function(){
+            let addrName = $('#addrName').val();
+            let addrDetail = $('#addrDetail').val();
+            if(addrName==''||addrName==null){
+                alert('addrName을 입력 하세요');
+                $('#addrName').focus();
+                return;
+            }
+            if(addrDetail==''||addrDetail==null){
+                alert('addrDetail를 입력 하세요');
+                $('#addrDetail').focus();
+                return;
+            }
+            registerAddr.send();
+        });
+    },
+    send:function(){
+        $('#register_form').attr({
+            'method':'post',
+            'action':this.url
+        });//html의 attribute는 태그 안에 들어가는 속성
+        $('#register_form').submit();
+    }
+};

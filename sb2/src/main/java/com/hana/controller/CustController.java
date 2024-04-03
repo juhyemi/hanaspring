@@ -50,16 +50,17 @@ public class CustController {
         return "index";
     }
     @RequestMapping("/custAdd")
-    public String cust3(Model model, CustDto custDto){
+    public String custAdd(Model model, CustDto custDto){
         try {
             custService.add(custDto);
-            model.addAttribute("left",dir+"left");
-            model.addAttribute("center",dir+"cust3");
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            model.addAttribute("left",dir+"left");
+            model.addAttribute("center", "registerfail");
+            //throw new RuntimeException(e);
+            return "index";
         }
 
-        return "index";
+        return "redirect:/cust/get?id="+custDto.getId();
     }
     @RequestMapping("/get")
     public String get(Model model, @RequestParam("id") String id){
@@ -69,7 +70,7 @@ public class CustController {
             model.addAttribute("left",dir+"left");
             model.addAttribute("center",dir+"get");
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
 
         return "index";

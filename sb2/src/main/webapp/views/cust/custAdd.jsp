@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script>
     $(function(){
-        register.init('<c:url value="/cust/custAdd"/>');
+        register.init('<c:url value="/addr/add"/>');
     });
 </script>
         <div class="container">

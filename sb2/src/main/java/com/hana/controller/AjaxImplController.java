@@ -4,6 +4,9 @@ import com.hana.app.data.dto.Chart2Dto;
 import com.hana.app.data.dto.CustDto;
 import com.hana.app.data.dto.SearchDto;
 import com.hana.app.data.dto.ShopDto;
+import com.hana.app.service.AddrService;
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -17,11 +20,23 @@ import java.util.List;
 
 @RestController
 @Slf4j
+@RequiredArgsConstructor
 public class AjaxImplController {
+    final AddrService addrService;
     @RequestMapping("/getservertime")
     public Object getservertime(){
         Date date = new Date();
         return date;
+    }
+    @RequestMapping("/addr/del")
+    public Object del(@RequestParam("num") Integer num, HttpSession httpSession){
+        String id = httpSession.getAttribute("id").toString();
+        try {
+            addrService.del(num);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return id;
     }
     @RequestMapping("/checkid")
     public Object checkid(@RequestParam("id") String id){

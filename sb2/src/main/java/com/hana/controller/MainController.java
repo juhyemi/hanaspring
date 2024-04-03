@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -65,6 +66,20 @@ public class MainController {
         } catch (Exception e) {
             //throw new RuntimeException(e);
             model.addAttribute("center", "registerfail");
+        }
+        return "index";
+    }
+    @RequestMapping("/userinfo")
+    String userinfo(Model model, @RequestParam("id") String id){
+        CustDto userInfo = null;
+        try {
+            userInfo = custService.get(id);
+            model.addAttribute("center","loginDetail");
+            model.addAttribute("left","infoleft");
+            model.addAttribute("userInfo", userInfo);
+        } catch (Exception e) {
+            //throw new RuntimeException(e);
+
         }
         return "index";
     }

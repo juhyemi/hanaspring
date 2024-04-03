@@ -6,6 +6,7 @@ import com.hana.app.repository.AddrRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -35,5 +36,9 @@ public class AddrService implements HanaService<Integer, AddrDto> {
     @Override
     public List<AddrDto> get() throws Exception {
         return addrRepository.select();
+    }
+
+    public List<AddrDto> getAddr(String s) throws Exception {
+        return addrRepository.getAddr(s);
     }
 }
