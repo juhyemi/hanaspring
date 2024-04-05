@@ -20,7 +20,7 @@ public class CustController {
     private final CustService custService;
     String dir="cust/";
     @RequestMapping("/get")
-    public String get(Model model){
+    public String get(Model model) throws Exception{
         //Database에서 데이터를 가지고 온다.
         List<CustDto> list = null;
         try {
@@ -28,9 +28,8 @@ public class CustController {
             model.addAttribute("custs",list);
             model.addAttribute("center",dir+"get");
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new Exception("ER00001");
         }
-
         return "index";
     }
     @RequestMapping("/add")
@@ -39,12 +38,12 @@ public class CustController {
         return "index";
     }
     @RequestMapping("/addImpl")
-    public String addImpl(CustDto dto){
+    public String addImpl(CustDto dto) throws Exception{
        log.info(String.valueOf(dto));
         try {
             custService.add(dto);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new Exception("ER0001");
         }
         return "redirect:/cust/get";
     }
@@ -67,7 +66,7 @@ public class CustController {
         return "redirect:/cust/get";
     }
     @RequestMapping("/delete")
-    public String modifyImpl(@RequestParam("id") String id){
+    public String delete(@RequestParam("id") String id){
         log.info(id);
         try {
             custService.del(id);
