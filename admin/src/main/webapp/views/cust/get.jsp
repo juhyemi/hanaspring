@@ -1,5 +1,27 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<script>
+    let cust_get={
+        init:function(){
+
+        },
+        update:function(id){
+            let c = confirm('수정하시겠습니까?');
+            if(c==true){
+                location.href = '<c:url value="/cust/custmodify"/>?id='+id;
+            }
+        },
+        delete:function(id){
+            let c = confirm('삭제하시겠습니까?');
+            if(c==true){
+                location.href = '<c:url value="/cust/delete"/>?id='+id;
+            }
+        }
+    }
+    $(function() {
+        cust_get.init();
+    });
+</script>
 <div class="container-fluid">
 
     <!-- Page Heading -->
@@ -28,14 +50,22 @@
                         <th>ID</th>
                         <th>PWD</th>
                         <th>NAME</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                     </tfoot>
                     <tbody>
                     <c:forEach var="c" items="${custs}">
                         <tr>
-                            <td>${c.id}</td>
+                            <td><a href="<c:url value="/cust/custmodify"/>?id=${c.id}">${c.id}</a></td>
                             <td>${c.pwd}</td>
                             <td>${c.name}</td>
+                            <td>
+                                <button type="button" id="btn_modify" class="btn btn-primary" onclick="cust_get.update('${c.id}')">MODIFY</button>
+                            </td>
+                            <td>
+                                <button type="button" id="btn_delete" class="btn btn-danger" onclick="cust_get.delete('${c.id}')">DELETE</button>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>

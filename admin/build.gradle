@@ -39,6 +39,20 @@ dependencies {
     // test
     testImplementation 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
+
+    // Mysql handler-날짜 때문에 함 LocalDate
+    implementation 'org.mybatis:mybatis-typehandlers-jsr310:1.0.2'
+
+    // logback - Mybatis SQL Log
+    implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+
+    // Mybatis & Mysql
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // Json
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+
 }
 
 tasks.named('test') {

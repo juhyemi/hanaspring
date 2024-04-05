@@ -27,7 +27,7 @@ logging:
 
 app:
   dir:
-    imgdir: file:///C:/project/imgs
-    logdir: file:///C:/project/logs
+    imgdir: file:C:/project/imgs/
+    logdir: file:C:/project/logs/
 
     #서버에서는 /root/imgs 이렇게
