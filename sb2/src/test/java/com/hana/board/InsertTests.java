@@ -1,7 +1,9 @@
-package com.hana.item;
+package com.hana.board;
 
 import com.hana.app.data.dto.AddrDto;
+import com.hana.app.data.dto.BoardDto;
 import com.hana.app.service.AddrService;
+import com.hana.app.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +16,12 @@ import java.sql.SQLException;
 @Slf4j
 class InsertTests {
     @Autowired
-    AddrService addrService;
+    BoardService boardService;
     @Test
     void contextLoads() throws Exception {
-        AddrDto addrDto = AddrDto.builder().addrName("home").addrDetail("우리집으로").custId("id98").build();
+        BoardDto boardDto = BoardDto.builder().custId("id98").boardTitle("제목").boardContent("내용").boardCnt(2).build();
         try {
-            addrService.add(addrDto);
+            boardService.add(boardDto);
             log.info("------------OK-------------");
         } catch (Exception e) {
             if(e instanceof SQLException){

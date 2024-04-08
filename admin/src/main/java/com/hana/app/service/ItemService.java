@@ -33,7 +33,7 @@ public class ItemService implements HanaService<Integer, ItemDto> {
     }
 
     @Override
-    public int modify(ItemDto itemDto) throws Exception {
+    public int modify(ItemDto itemDto) throws SQLException, FileNotFoundException, Exception {
         int result = 0;
         if(itemDto.getImage().isEmpty()){
             result =itemRepository.update(itemDto);

@@ -51,7 +51,6 @@
         <div class="card-body">
             <div class="table-responsive">
                 <form id="add_form">
-
                     <div class="form-group">
                         <label for="itemName">Name:</label>
                         <input type="text"  class="form-control" id="itemName" placeholder="Enter name" name="itemName">

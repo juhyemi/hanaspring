@@ -10,7 +10,7 @@
 <head>
     <div class="col-sm-9">
         <div class="container">
-            <h2>TITLE HEADING</h2>
+            <h2>Center Page</h2>
             <h5>Title description, Sep 2, 2017</h5>
             <div class="fakeimg">Fake Image</div>
             <p>Some text..</p>

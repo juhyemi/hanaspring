@@ -46,7 +46,7 @@ dependencies {
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
     runtimeOnly 'com.mysql:mysql-connector-j'
 
-    // Mysql handler-날짜 때문에 함 LocalDate
+    // Mysql handler-날짜 때문에 함 LocalDate LocalDateTime
     implementation 'org.mybatis:mybatis-typehandlers-jsr310:1.0.2'
 
     // logback - Mybatis SQL Log
