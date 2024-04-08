@@ -41,6 +41,9 @@ public class BoardService implements HanaService<Integer, BoardDto> {
     public int modifycnt(BoardDto boardDto) throws Exception{
         return boardRepository.modifycnt(boardDto);
     }
+    public List<BoardDto> getRank() throws Exception {
+        return boardRepository.getRank();
+    }
 
 //    public List<BoardDto> findByCustId(String id) throws Exception{
 //        return boardRepository.findByCustId(id);

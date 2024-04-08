@@ -13,4 +13,5 @@ import java.util.List;
 public interface BoardRepository extends HanaRepository<Integer, BoardDto> {
     //interface끼리는 extends
     int modifycnt(BoardDto boardDto) throws Exception;
+    List<BoardDto> getRank() throws Exception;
 }

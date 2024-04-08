@@ -4,6 +4,24 @@
 <script>
     let add={
         init:function(){
+            $('#id').keyup(()=>{
+                let id = $('#id').val();
+                $.ajax({
+                    url:'<c:url value="/cust/idcheck"/>',
+                    data:{
+                        "id":id
+                    },
+                    success:(result)=>{
+                        alert(result);
+                        console.log(result);
+                        let msg='사용 불가능 합니다.';
+                        if(result=='1'){
+                            msg = '사용 가능 합니다.';
+                        }
+                        $('#check_msg').html(msg);
+                    }
+                })
+            })
             $('#bnt_add').click(()=>{
                 let id = $('#id').val();
                 let pwd = $('#pwd').val();
@@ -52,8 +70,9 @@
                     <div class="form-group">
                         <label for="id">ID</label>
                         <input type="text" value="" class="form-control" id="id" placeholder="Enter id" name="id">
-
+                        <span id="check_msg"></span>
                     </div>
+
                     <div class="form-group">
                         <label for="pwd">Password:</label>
                         <input type="password"  value=""  class="form-control" id="pwd" placeholder="Enter password" name="pwd">

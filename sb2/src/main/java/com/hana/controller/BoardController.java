@@ -40,8 +40,7 @@ public class BoardController {
             dto = boardService.get(id);
             log.info("+======================check"+dto.toString()  );
 
-            if(!dto.getCustId().equals(session.getAttribute("id"))){
-                dto.setBoardCnt(dto.getBoardCnt()+1);
+            if(session!=null&&!dto.getCustId().equals(session.getAttribute("id"))){
                 boardService.modifycnt(dto);
             }
             model.addAttribute("center", dir+"detail");

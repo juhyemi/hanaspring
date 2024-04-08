@@ -6,8 +6,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,7 @@ public class CustController {
         }
         return "index";
     }
+
     @RequestMapping("/add")
     public String add(Model model){
         model.addAttribute("center",dir+"add");
@@ -74,6 +77,15 @@ public class CustController {
             throw new RuntimeException(e);
         }
         return "redirect:/cust/get";
+    }
+    @RequestMapping("/idcheck")
+    @ResponseBody
+    public Object idcheck(@RequestParam("id") String id) throws Exception{
+        CustDto custDto=null;
+        custDto=custService.get(id);
+        String result="0";
+        if(custDto==null) result="1";
+        return result;
     }
 
 }

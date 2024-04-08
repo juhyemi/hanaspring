@@ -1,6 +1,8 @@
 package com.hana.controller;
 
+import com.hana.app.data.dto.BoardDto;
 import com.hana.app.data.dto.CustDto;
+import com.hana.app.service.BoardService;
 import com.hana.app.service.CustService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,10 +23,20 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class MainController {
     final CustService custService;
+    final BoardService boardService;
     @RequestMapping("/")
-    String main(){
+    String main(Model model) throws Exception{
         Random r = new Random();
         int num = r.nextInt(100);
+        List<BoardDto> list = null;
+        try{
+            list = boardService.getRank();
+            model.addAttribute("ranks",list);
+
+        }catch(Exception e){
+            model.addAttribute("ranks",null);
+
+        }
         log.info(num+"");
         return "index";
     }
@@ -58,7 +71,8 @@ public class MainController {
             httpSession.setAttribute("id",id);
         } catch (Exception e) {
             //throw new RuntimeException(e);
-            model.addAttribute("center", "loginfail");
+            model.addAttribute("msg", "ID 또는 PWD가 틀렸습니다.");
+            model.addAttribute("center", "login");
         }
         return "index";
     }
@@ -86,6 +100,17 @@ public class MainController {
 
         }
         return "index";
+    }
+
+    @RequestMapping("/registercheckid")
+    @ResponseBody
+    public Object registercheckid(@RequestParam("id") String id) throws Exception{
+        String result="0";
+        CustDto custDto = custService.get(id);
+        if(custDto==null){
+            result="1";
+        }
+        return result;
     }
 
 }

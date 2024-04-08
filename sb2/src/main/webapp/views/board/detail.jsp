@@ -60,7 +60,7 @@
                     </div>
                     <div class="form-group">
                         <label for="boardContent">CONTENT</label>
-                        <input type="text" value="${board.boardContent}"  class="form-control" id="boardContent" placeholder="Enter name" name="boardContent">
+                        <textarea class="form-control" id="boardContent" placeholder="Enter name" name="boardContent">${board.boardContent}</textarea>
                     </div>
                     <div class="form-group">
                         등록일자

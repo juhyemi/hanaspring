@@ -20,11 +20,16 @@
         UPDATE db_board SET board_title=#{boardTitle}, board_content=#{boardContent},
                             board_update=NOW()  WHERE board_id=#{boardId}
     </update>
+<!--    <update id="modifycnt" parameterType="boardDto">-->
+<!--        UPDATE db_board SET board_cnt=#{boardCnt} WHERE board_id=#{boardId}-->
+<!--    </update>-->
     <update id="modifycnt" parameterType="boardDto">
-        UPDATE db_board SET board_cnt=#{boardCnt} WHERE board_id=#{boardId}
+        UPDATE db_board SET board_cnt=#{boardCnt+1} WHERE board_id=#{boardId}
     </update>
     <delete id="delete" parameterType="Integer">
         DELETE FROM db_board WHERE board_id=#{id}
     </delete>
-
+    <select id="getRank" resultType="boardDto">
+        SELECT * FROM db_board ORDER BY board_cnt DESC LIMIT 3;
+    </select>
 </mapper>
