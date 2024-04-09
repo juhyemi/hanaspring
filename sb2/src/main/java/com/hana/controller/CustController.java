@@ -1,5 +1,6 @@
 package com.hana.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.hana.app.data.dto.CustDto;
 import com.hana.app.service.CustService;
 import lombok.RequiredArgsConstructor;
@@ -69,6 +70,21 @@ public class CustController {
             model.addAttribute("custDetail", cust);
             model.addAttribute("left",dir+"left");
             model.addAttribute("center",dir+"get");
+        } catch (Exception e) {
+            //throw new RuntimeException(e);
+        }
+
+        return "index";
+    }
+    @RequestMapping("/allpage")
+    public String allpage(@RequestParam("pageNo") int pageNo, Model model) throws Exception {
+        PageInfo<CustDto> p;
+        try {
+            p = new PageInfo<>(custService.getPage(pageNo),5);
+            model.addAttribute("cpage", p);
+            model.addAttribute("target","/cust");
+            model.addAttribute("left",dir+"left");
+            model.addAttribute("center",dir+"allpage");
         } catch (Exception e) {
             //throw new RuntimeException(e);
         }

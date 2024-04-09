@@ -66,8 +66,8 @@
                         등록일자
                         <h6>
                             <fmt:parseDate value="${ board.boardRegdate }"
-                                           pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDateTime" type="both" />
-                            <fmt:formatDate pattern="yyyy년 MM월 dd일 hh시 mm분 ss초" value="${ parsedDateTime }" />
+                                           pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+                            <fmt:formatDate pattern="yyyy년 MM월 dd일 hh시 mm분" value="${ parsedDateTime }" />
                         </h6>
                         수정일자
                         <h6>
@@ -87,6 +87,10 @@
                     </c:if>
                 </form>
 
+
+                    <c:choose>
+                        <c:when test="${!empty(board.commentList)}">
+
                 <table class="table table-striped" id="comment_table">
                     <thead>
                     <tr>
@@ -97,14 +101,21 @@
                     </thead>
                     <tbody>
                     <c:forEach var="c" items="${board.commentList}">
-                        <tr>
-                            <td>${c.commentContent}</td>
-                            <td>${c.custId}</td>
-                            <td>${c.commentRegdate}</td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+                                <tr>
+                                    <td>${c.commentContent}</td>
+                                    <td>${c.custId}</td>
+                                    <td>${c.commentRegdate}</td>
+                                </tr>
+                            </c:forEach>
+
+                            </tbody>
+                            </table>
+                        </c:when>
+                        <c:otherwise>
+                            <span> 댓글이 없습니다. </span>
+                        </c:otherwise>
+                    </c:choose>
+
             </div>
         </div>
     </div>

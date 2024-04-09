@@ -1,5 +1,6 @@
 package com.hana.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.hana.app.data.dto.BoardDto;
 import com.hana.app.service.BoardService;
 import jakarta.servlet.http.HttpSession;
@@ -34,19 +35,19 @@ public class BoardController {
         return "index";
     }
     @RequestMapping("/detail")
-    public String detail(Model model, @RequestParam("id") int id, HttpSession session){
+    public String detail(Model model, @RequestParam("id") int id, HttpSession session) throws Exception {
         BoardDto dto = null;
         try {
             dto = boardService.get(id);
-            dto.getCommentList().stream().forEach((c->log.info(c.toString())));
 
             if(session!=null&&!dto.getCustId().equals(session.getAttribute("id"))){
+                dto.setBoardCnt(dto.getBoardCnt()+1);
                 boardService.modifycnt(dto);
             }
             model.addAttribute("center", dir+"detail");
             model.addAttribute("board", dto);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw e;
         }
 
         return "index";
@@ -84,5 +85,20 @@ public class BoardController {
             throw new RuntimeException(e);
         }
         return "redirect:/board/get";
+    }
+    @RequestMapping("/allpage")
+    public String all(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo, Model model) throws Exception{
+        PageInfo<BoardDto> p;
+        try {
+            p = new PageInfo<>(boardService.getAll(pageNo), 5); // 5:하단 네비게이션 개수
+            log.info("check=========================="+p.toString());
+            model.addAttribute("cpage",p);
+            model.addAttribute("target","/board");
+            model.addAttribute("center", dir+"getall");
+            model.addAttribute("left", "left");
+        } catch (Exception e) {
+            // throw new Exception("시스템 장애: ER0001");
+        }
+        return "index";
     }
 }

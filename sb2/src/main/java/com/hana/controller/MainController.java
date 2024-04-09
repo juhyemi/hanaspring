@@ -74,7 +74,7 @@ public class MainController {
             model.addAttribute("msg", "ID 또는 PWD가 틀렸습니다.");
             model.addAttribute("center", "login");
         }
-        return "index";
+        return "redirect:/";
     }
     @RequestMapping("/registerimpl")
     String registerimpl(Model model, CustDto custDto, HttpSession httpSession){
