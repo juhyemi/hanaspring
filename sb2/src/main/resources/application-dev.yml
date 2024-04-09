@@ -29,5 +29,5 @@ app:
   dir:
     imgdir: file:C:/project/imgs/
     logdir: file:C:/project/logs/
-
+  wkey: CrsgVgYfMqRWI2oUuL62DG%2BSen%2B1YqxTsFW8TGaV6hb65%2FsV1uqZvbLarIBJWQWqeT9n%2BOgiW76bIBNWqifasw%3D%3D
     #서버에서는 /root/imgs 이렇게
