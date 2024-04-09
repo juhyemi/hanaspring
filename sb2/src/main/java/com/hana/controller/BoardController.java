@@ -38,7 +38,7 @@ public class BoardController {
         BoardDto dto = null;
         try {
             dto = boardService.get(id);
-            log.info("+======================check"+dto.toString()  );
+            dto.getCommentList().stream().forEach((c->log.info(c.toString())));
 
             if(session!=null&&!dto.getCustId().equals(session.getAttribute("id"))){
                 boardService.modifycnt(dto);

@@ -86,6 +86,25 @@
                         <button type="button" id="btn_delete" class="btn btn-danger">DELETE</button>
                     </c:if>
                 </form>
+
+                <table class="table table-striped" id="comment_table">
+                    <thead>
+                    <tr>
+                        <th>CONTENT</th>
+                        <th>WRITER</th>
+                        <th>REGDATE</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="c" items="${board.commentList}">
+                        <tr>
+                            <td>${c.commentContent}</td>
+                            <td>${c.custId}</td>
+                            <td>${c.commentRegdate}</td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
