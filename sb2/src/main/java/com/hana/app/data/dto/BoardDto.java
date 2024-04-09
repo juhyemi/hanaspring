@@ -19,5 +19,7 @@ public class BoardDto {
     private String boardContent;
     private LocalDateTime boardRegdate;
     private LocalDateTime boardUpdate;
-    private int boardCnt;
+    private int boardCnt; //조회수
+    //조회시 comment 개수 확인을 위한 field
+    private int commentCnt; //댓글수
 }
