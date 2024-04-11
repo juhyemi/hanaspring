@@ -1,7 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-
+<!--Web Socket Lib-->
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,8 +64,9 @@
                 <a class="nav-link" href="<c:url value="/logout"/>">LOGOUT</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">ABOUT US</a>
+                <a class="nav-link" href="<c:url value="/chat"/>">Chat</a>
             </li>
+
         </ul>
     </c:otherwise>
 </c:choose>

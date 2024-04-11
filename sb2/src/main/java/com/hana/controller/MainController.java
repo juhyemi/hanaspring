@@ -34,6 +34,8 @@ public class MainController {
     String wkey;
     @Value("${app.key.whkey}")
     String whkey;
+    @Value("${app.url.serverurl}")
+    String serverurl;
     @RequestMapping("/")
     String main(Model model) throws Exception{
         Random r = new Random();
@@ -131,6 +133,12 @@ public class MainController {
     @ResponseBody
     public Object weather(Model model) throws IOException, ParseException {
         return WeatherUtil2.getWeather2("1835848", whkey);
+    }
+    @RequestMapping("/chat")
+    public String chat(Model model) throws IOException, ParseException {
+        model.addAttribute("center","chat");
+        model.addAttribute("serverurl",serverurl);
+        return "index";
     }
     @RequestMapping("/weatherpage")
     public String weatherpage(Model model){

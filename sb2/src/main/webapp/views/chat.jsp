@@ -96,7 +96,6 @@
                 $("#status").text("Connected");
             }else{
                 $("#status").text("Disconnected");
-
             }
         }
     };
@@ -104,42 +103,29 @@
         websocket.init();
     });
 </script>
-<div class="container-fluid">
+<div class="col-sm-9">
+        <div class="container">
+            <h2>Chat Page</h2>
+            <div class="col-sm-5">
+                <h1 id="adm_id">${sessionScope.id}</h1>
+                <H1 id="status">Status</H1>
+                <button id="connect">Connect</button>
+                <button id="disconnect">Disconnect</button>
 
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Web Socket</h1>
+                <h3>All</h3>
+                <input type="text" id="alltext"><button id="sendall">Send</button>
+                <div id="all"></div>
 
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Websocket</h6>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <div class="col-sm-5">
-                    <h1 id="adm_id">${sessionScope.admin.id}</h1>
-                    <H1 id="status">Status</H1>
-                    <button id="connect">Connect</button>
-                    <button id="disconnect">Disconnect</button>
+                <h3>Me</h3>
+                <input type="text" id="metext"><button id="sendme">Send</button>
+                <div id="me"></div>
 
-                    <h3>All</h3>
-                    <input type="text" id="alltext"><button id="sendall">Send</button>
-                    <div id="all"></div>
+                <h3>To</h3>
+                <input type="text" id="target">
+                <input type="text" id="totext"><button id="sendto">Send</button>
+                <div id="to"></div>
 
-                    <h3>Me</h3>
-                    <input type="text" id="metext"><button id="sendme">Send</button>
-                    <div id="me"></div>
-
-                    <h3>To</h3>
-                    <input type="text" id="target">
-                    <input type="text" id="totext"><button id="sendto">Send</button>
-                    <div id="to"></div>
-
-                </div>
             </div>
-        </div>
-            </div>
-        </div>
-    </div>
 
+        </div>
 </div>

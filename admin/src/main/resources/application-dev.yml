@@ -15,10 +15,8 @@ spring:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://127.0.0.1:3306/shopdb?characterEncoding=utf8&serverTimezone=Asia/Seoul
     # user01/111111
-#    username: ENC(eQ0pbOqdWDTy3ZIsOOohQQ==)
-#    password: ENC(HznPgji+lD6/4M4sFkEZtg==)
-    username: user01
-    password: 111111
+    username: ENC(eQ0pbOqdWDTy3ZIsOOohQQ==)
+    password: ENC(HznPgji+lD6/4M4sFkEZtg==)
 mybatis:
   type-aliases-package: com.hana.app.data.dto
   mapper-locations: classpath:/mapper/*.xml
@@ -35,6 +33,6 @@ app:
     Uploadimgdir: C:/project/imgs/ #파일 Write용
 
   url:
-    server-url: http://127.0.0.1:81
+    server-url: http://172.16.21.135:81
 
     #서버에서는 /root/imgs 이렇게
