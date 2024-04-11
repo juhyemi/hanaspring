@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!-- JSTL -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!--Web Socket Lib-->
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -90,7 +93,13 @@
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
-
+        <c:if test="${sessionScope.admin != null}">
+        <li class="nav-item active">
+            <a class="nav-link" href="<c:url value="/websocket" />">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Web Socket</span></a>
+        </li>
+        </c:if>
         <!-- Divider -->
         <hr class="sidebar-divider">
 

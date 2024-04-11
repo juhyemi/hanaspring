@@ -14,6 +14,9 @@ spring:
     url: jdbc:log4jdbc:mysql://127.0.0.1:3306/shopdb?characterEncoding=utf8
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://127.0.0.1:3306/shopdb?characterEncoding=utf8&serverTimezone=Asia/Seoul
+    # user01/111111
+#    username: ENC(eQ0pbOqdWDTy3ZIsOOohQQ==)
+#    password: ENC(HznPgji+lD6/4M4sFkEZtg==)
     username: user01
     password: 111111
 mybatis:
@@ -32,6 +35,6 @@ app:
     Uploadimgdir: C:/project/imgs/ #파일 Write용
 
   url:
-    chart-url: http://127.0.0.1:81
+    server-url: http://127.0.0.1:81
 
     #서버에서는 /root/imgs 이렇게

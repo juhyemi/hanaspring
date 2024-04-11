@@ -6,17 +6,17 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class Scheduler {
-    @Scheduled(cron = "*/15 * * * * *")
-    public void cronJobDailyUpdate() {
-        log.info("------------------------------------------------");
-        log.info("사용자 로그인 정보를 조회하여 로그를 기록");
-        log.info("------------------------------------------------");
-    }
+//    @Scheduled(cron = "*/15 * * * * *")
+//    public void cronJobDailyUpdate() {
+//        log.info("------------------------------------------------");
+//        log.info("사용자 로그인 정보를 조회하여 로그를 기록");
+//        log.info("------------------------------------------------");
+//    }
 
-    @Scheduled(cron = "1 0 0 1,8,15,22 * *")
-    public void cronJobWeeklyUpdate(){
-
-    }
+//    @Scheduled(cron = "1 0 0 1,8,15,22 * *")
+//    public void cronJobWeeklyUpdate(){
+//
+//    }
 
 
 }
