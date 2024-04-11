@@ -1,6 +1,7 @@
 package com.hana.weather;
 
 import com.hana.util.WeatherUtil;
+import com.hana.util.WeatherUtil2;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -18,6 +19,11 @@ class Test {
         String loc = "109";
         JSONObject jsonObject= (JSONObject) WeatherUtil.getWeather(loc,key);
         log.info("------------LOG-------------"+jsonObject.toJSONString());
+        String key2 = "e4a0707e84837f2e884cd8beb353e1eb";
+        String loc2 = "1835848";
+        JSONObject jsonObject2= (JSONObject) WeatherUtil2.getWeather2(loc2,key2);
+        log.info("Log2================================"+jsonObject2.toJSONString());
+
     }
 
 }

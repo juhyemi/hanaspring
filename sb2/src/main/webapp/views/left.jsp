@@ -28,6 +28,9 @@
         <li class="nav-item">
             <a class="nav-link" href="<c:url value="/board/allpage?pageNo=1"/>">board all</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<c:url value="/weatherpage"/>">weather page</a>
+        </li>
 
     </ul>
 </head>

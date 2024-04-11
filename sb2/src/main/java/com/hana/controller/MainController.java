@@ -5,6 +5,7 @@ import com.hana.app.data.dto.CustDto;
 import com.hana.app.service.BoardService;
 import com.hana.app.service.CustService;
 import com.hana.util.WeatherUtil;
+import com.hana.util.WeatherUtil2;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,8 +30,10 @@ public class MainController {
     final CustService custService;
     final BoardService boardService;
 
-    @Value("${app.wkey}")
+    @Value("${app.key.wkey}")
     String wkey;
+    @Value("${app.key.whkey}")
+    String whkey;
     @RequestMapping("/")
     String main(Model model) throws Exception{
         Random r = new Random();
@@ -124,5 +127,15 @@ public class MainController {
     public Object wh(Model model) throws IOException, ParseException {
         return WeatherUtil.getWeather("109",wkey);
     }
-
+    @RequestMapping("/weather")
+    @ResponseBody
+    public Object weather(Model model) throws IOException, ParseException {
+        return WeatherUtil2.getWeather2("1835848", whkey);
+    }
+    @RequestMapping("/weatherpage")
+    public String weatherpage(Model model){
+        model.addAttribute("left","left");
+        model.addAttribute("center","weather");
+        return "index";
+    }
 }
