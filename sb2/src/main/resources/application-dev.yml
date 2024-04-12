@@ -28,7 +28,7 @@ logging:
 
 app:
   url:
-    serverurl: http://172.16.21.135:81
+    serverurl: http://172.16.21.91:81
   dir:
     imgdir: file:C:/project/imgs/
     logdir: file:C:/project/logs/
