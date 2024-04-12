@@ -1,5 +1,6 @@
 package com.hana;
 
+import com.hana.util.StringEnc;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,8 +11,11 @@ class Sb2ApplicationTests {
 
     @Test
     void contextLoads() {
-        log.info("------------LOG-------------");
-        log.error("----------ERROR------------");
+        String text = "abc";
+        String atext = StringEnc.encryptor(text);
+        String aatext = StringEnc.decryptor(atext);
+        log.info("------------LOG-------------"+atext);
+        log.error("----------ERROR------------"+aatext);
     }
 
 }

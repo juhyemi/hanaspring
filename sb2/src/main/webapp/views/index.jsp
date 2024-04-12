@@ -2,8 +2,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!--Web Socket Lib-->
-<script src="<c:url value="/webjars/sockjs-client/sockjs.min.js"/>"/>
-<script src="<c:url value="/webjars/stomp-websocket/stomp.min.js"/>"/>
+<%--<script src="<c:url value="/webjars/sockjs-client/sockjs.min.js"/>"/>--%>
+<%--<script src="<c:url value="/webjars/stomp-websocket/stomp.min.js"/>"/>--%>
 <!DOCTYPE html>
 <html lang="en">
 <head>

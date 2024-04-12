@@ -4,6 +4,7 @@ import com.hana.app.data.dto.BoardDto;
 import com.hana.app.data.dto.CustDto;
 import com.hana.app.service.BoardService;
 import com.hana.app.service.CustService;
+import com.hana.util.StringEnc;
 import com.hana.util.WeatherUtil;
 import com.hana.util.WeatherUtil2;
 import jakarta.servlet.http.HttpSession;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +31,7 @@ import java.util.Random;
 public class MainController {
     final CustService custService;
     final BoardService boardService;
+    final BCryptPasswordEncoder encoder;
 
     @Value("${app.key.wkey}")
     String wkey;
@@ -77,7 +80,7 @@ public class MainController {
             if(custDto==null){
                 throw new Exception();
             }
-            if(!custDto.getPwd().equals(pwd)){
+            if(!encoder.matches(pwd,custDto.getPwd())){
                 throw new Exception();
             }
             httpSession.setAttribute("id",id);
@@ -90,7 +93,10 @@ public class MainController {
     }
     @RequestMapping("/registerimpl")
     String registerimpl(Model model, CustDto custDto, HttpSession httpSession){
+
         try {
+            custDto.setPwd(encoder.encode(custDto.getPwd()));
+            custDto.setName(StringEnc.encryptor(custDto.getName()));
             custService.add(custDto);
             httpSession.setAttribute("id",custDto.getId());
         } catch (Exception e) {
