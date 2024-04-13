@@ -11,7 +11,7 @@
             this.stompClient = Stomp.over(socket);
             //frame은 접속 후 확인차 서버에서 내려오는 데이터
             this.stompClient.connect({},function(frame){
-                console.log(frame);
+                //console.log(frame);
                 //접속시도하면 받을준비, 받을 때는 msg가 내려온다.
                 this.subscribe('/send2',function(msg){
                     console.log(msg);
@@ -31,10 +31,24 @@
                     $('#progress4').css('width',JSON.parse(msg.body).content4/10*100+'%');
                     $('#progress4').attr('aria-valuenow',JSON.parse(msg.body).content4/10*100);
                 });
-
             });
         }
     };
+    let popup = {
+        stompClient:null,
+        init:function(){
+            let socket = new SockJS('${serverurl}/notice'); //웹소켓 서버로 접속
+            this.stompClient = Stomp.over(socket);
+            this.stompClient.connect({},function(frame){
+                this.subscribe('/send3',function(msg){
+                    console.log(msg);
+                    let check = confirm("공지사항을 확인하시겠습니까?");
+                    $('.modal-body').text(JSON.parse(msg.body).content1);
+                    $("#myModal").modal("show");
+                });
+            });
+        }
+    }
     let center = {
         init:function(){
             const defaultData = '${chartUrl}/logs/custinfo.log';
@@ -109,9 +123,35 @@
     $(function(){
         center.init();
         center_websocket.init();
+        popup.init();
     });
 </script>
+<!--Modal start-->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">공지사항</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</div>
+<!--End modal-->
 <div class="container-fluid">
 
     <!-- Page Heading -->

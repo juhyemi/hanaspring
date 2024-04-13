@@ -33,6 +33,6 @@ app:
     Uploadimgdir: C:/project/imgs/ #파일 Write용
 
   url:
-    server-url: http://172.16.21.135:81
+    server-url: http://192.168.1.117:81
 
     #서버에서는 /root/imgs 이렇게

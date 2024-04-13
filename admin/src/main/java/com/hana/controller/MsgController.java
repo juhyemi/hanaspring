@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 @Slf4j
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Controller;
 public class MsgController {
     @Autowired
     SimpMessagingTemplate template;
+    @Autowired
+    SimpMessageSendingOperations simpMessageSendingOperations;
 
     @MessageMapping("/receiveall") // 모두에게 전송
     public void receiveall(Msg msg, SimpMessageHeaderAccessor headerAccessor) {
@@ -33,5 +36,10 @@ public class MsgController {
         log.info("-------------------------");
 
         template.convertAndSend("/send/to/"+target,msg);
+    }
+    @MessageMapping("/noticemsg") // 모두에게 전송
+    public void noticemsg(Msg msg, SimpMessageHeaderAccessor headerAccessor) {
+        log.info("notice checking====================================="+msg.toString());
+        simpMessageSendingOperations.convertAndSend("/send3",msg);
     }
 }

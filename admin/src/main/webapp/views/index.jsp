@@ -93,6 +93,11 @@
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="<c:url value="/noticepage" />">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Notice</span></a>
+        </li>
         <c:if test="${sessionScope.admin != null}">
         <li class="nav-item active">
             <a class="nav-link" href="<c:url value="/websocket" />">

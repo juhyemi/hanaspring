@@ -30,6 +30,12 @@ public class MainController {
         model.addAttribute("center", "websocket");
         return "index";
     }
+    @RequestMapping("/noticepage")
+    public String notice(Model model){
+        model.addAttribute("center", "noticepage");
+        model.addAttribute("serverurl",serverUrl);
+        return "index";
+    }
     @RequestMapping("/logout")
     public String logoout(HttpSession session){
         if(session!=null){
