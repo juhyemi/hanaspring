@@ -68,6 +68,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     testImplementation 'org.springframework.security:spring-security-test'
 
+    //redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    //redis를 이용해 세션을 저장하겠다.
+    implementation 'org.springframework.session:spring-session-data-redis'
+
 }
 
 tasks.named('test') {
