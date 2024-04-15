@@ -2,6 +2,8 @@ package com.hana.controller;
 
 import com.hana.app.data.dto.BoardDto;
 import com.hana.app.data.dto.CustDto;
+import com.hana.app.data.entity.LoginCust;
+import com.hana.app.repository.LoginCustRepository;
 import com.hana.app.service.BoardService;
 import com.hana.app.service.CustService;
 import com.hana.util.StringEnc;
@@ -32,6 +34,7 @@ public class MainController {
     final CustService custService;
     final BoardService boardService;
     final BCryptPasswordEncoder encoder;
+    final LoginCustRepository loginCustRepository;
 
     @Value("${app.key.wkey}")
     String wkey;
@@ -60,9 +63,11 @@ public class MainController {
         model.addAttribute("center","login");
         return "index";
     }
-    @RequestMapping("/logout")
-    String login(Model model, HttpSession httpSession){
+    @RequestMapping("/logoutimpl")
+    String logout(Model model, HttpSession httpSession){
+        log.info("start Logout----------------------------------------");
         if(httpSession != null){
+            loginCustRepository.deleteById((String) httpSession.getAttribute("id"));
             httpSession.invalidate(); //서버에서는 다시 저장하지 않는다.
         }
         return "index";
@@ -83,6 +88,9 @@ public class MainController {
             if(!encoder.matches(pwd,custDto.getPwd())){
                 throw new Exception();
             }
+            LoginCust loginCust = LoginCust.builder().loginId(id).build();
+            loginCustRepository.save(loginCust);
+
             httpSession.setAttribute("id",id);
         } catch (Exception e) {
             //throw new RuntimeException(e);
