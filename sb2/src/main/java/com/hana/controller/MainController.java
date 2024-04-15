@@ -107,6 +107,7 @@ public class MainController {
             custDto.setName(StringEnc.encryptor(custDto.getName()));
             custService.add(custDto);
             httpSession.setAttribute("id",custDto.getId());
+            loginCustRepository.save(LoginCust.builder().loginId(custDto.getId()).build());
         } catch (Exception e) {
             //throw new RuntimeException(e);
             model.addAttribute("center", "registerfail");
