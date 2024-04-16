@@ -129,6 +129,7 @@
                     <h6 class="collapse-header">Customer Management:</h6>
                     <a class="collapse-item" href="<c:url value="/cust/add"/>">Add</a>
                     <a class="collapse-item" href="<c:url value="/cust/get"/>">Get</a>
+                    <a class="collapse-item" href="<c:url value="/cust/loginInfo"/>">loginInfo</a>
                 </div>
             </div>
         </li>

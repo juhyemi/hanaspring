@@ -1,6 +1,8 @@
 package com.hana.controller;
 
 import com.hana.app.data.dto.CustDto;
+import com.hana.app.data.entity.LoginCust;
+import com.hana.app.repository.LoginCustRepository;
 import com.hana.app.service.CustService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +22,7 @@ import java.util.List;
 @Slf4j
 public class CustController {
     private final CustService custService;
+    final LoginCustRepository loginCustRepository;
     String dir="cust/";
     @RequestMapping("/get")
     public String get(Model model) throws Exception{
@@ -86,6 +89,20 @@ public class CustController {
         String result="0";
         if(custDto==null) result="1";
         return result;
+    }
+
+    @RequestMapping("/loginInfo")
+    public String loginInfo(Model model){
+        Iterable<LoginCust> list = loginCustRepository.findAll();
+        List<LoginCust> loginlist = new ArrayList<>();
+        list.forEach(lc->{
+            if(lc!=null) loginlist.add(lc);
+        });
+        model.addAttribute("list", loginlist);
+        model.addAttribute("cnt", loginlist.size());
+        model.addAttribute("center",dir+"loginInfo");
+
+        return "index";
     }
 
 }

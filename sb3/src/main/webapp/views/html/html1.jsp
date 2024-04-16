@@ -1,0 +1,34 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+    <style>
+        p{
+            color:red;
+        }
+    </style>
+    <script>
+        window.onload=function (){
+            $(document).ready(function(){
+                $('#ptag').text('Replace Text');
+                $('p').click(function(){
+                    alert('ok');
+                    $(this).text('Click Event');
+                });
+            });
+            // document.getElementById("ptag").innerHTML='Replace Text';
+            //
+            // document.querySelector('h5').onclick(function (){
+            //     alert('OK');
+            // });
+        };
+
+    </script>
+    <div class="col-sm-9">
+        <div class="container">
+            <h2>HTML1 page</h2>
+            <h5>Title description, Sep 2, 2017</h5>
+            <div class="fakeimg">Fake Image</div>
+            <p id="ptag">Some text..</p>
+            <span>Sqan</span>
+            <a href="#">A Tag</a>
+        </div>
+    </div>
+

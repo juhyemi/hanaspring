@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hana.app.repository.AddrRepository">
+
+    <select id="selectOne" parameterType="String" resultType="addrDto">
+        SELECT * FROM db_cust_addr WHERE addr_id=#{id}
+    </select>
+    <select id="select" resultType="addrDto">
+        SELECT * FROM db_cust_addr
+    </select>
+    <insert id="insert" parameterType="addrDto">
+        INSERT INTO db_cust_addr VALUES (#{addrId},#{addrName},#{addrDetail},#{custId})
+    </insert>
+    <update id="update" parameterType="addrDto">
+        UPDATE db_cust_addr SET addr_name=#{addrName},addr_detail =#{addrDetail} WHERE addr_id=#{addrId}
+    </update>
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM db_cust_addr WHERE addr_id=#{id}
+    </delete>
+    <select id="getAddr" parameterType="String" resultType="addrDto">
+        SELECT * FROM db_cust_addr WHERE cust_id=#{id}
+    </select>
+
+</mapper>

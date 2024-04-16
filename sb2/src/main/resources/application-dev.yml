@@ -41,9 +41,12 @@ app:
   url:
     serverurl: http://172.16.21.135:81
   dir:
-    imgdir: file:C:/project/imgs/
-    logdir: file:C:/project/logs/
+    imgdir: file:///C:/project/imgs/ #화면 출력용
+    uploadimgdir: C:/project/imgs/ #파일 write용
+    logdir: file:///C:/project/logs/
   key:
     wkey: CrsgVgYfMqRWI2oUuL62DG%2BSen%2B1YqxTsFW8TGaV6hb65%2FsV1uqZvbLarIBJWQWqeT9n%2BOgiW76bIBNWqifasw%3D%3D
     whkey: e4a0707e84837f2e884cd8beb353e1eb
+    ncp-id: coqcbtkfon
+    ncp-secret: vY5MbybmWE1cSNe5AuG6xrRDCkDj2RAjygeNqzG4
     #서버에서는 /root/imgs 이렇게

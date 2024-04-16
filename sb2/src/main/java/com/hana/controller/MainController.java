@@ -6,12 +6,11 @@ import com.hana.app.data.entity.LoginCust;
 import com.hana.app.repository.LoginCustRepository;
 import com.hana.app.service.BoardService;
 import com.hana.app.service.CustService;
-import com.hana.util.StringEnc;
-import com.hana.util.WeatherUtil;
-import com.hana.util.WeatherUtil2;
+import com.hana.util.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,10 +20,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @Controller
@@ -42,6 +43,12 @@ public class MainController {
     String whkey;
     @Value("${app.url.serverurl}")
     String serverurl;
+    @Value("${app.dir.uploadimgdir}")
+    String uploadImgDir;
+    @Value("${app.key.ncp-id}")
+    String ncpId;
+    @Value("${app.key.ncp-secret}")
+    String ncpSecret;
     @RequestMapping("/")
     String main(Model model) throws Exception{
         Random r = new Random();
@@ -62,6 +69,13 @@ public class MainController {
     String login(Model model){
         model.addAttribute("center","login");
         return "index";
+    }
+    @RequestMapping("/saveimg")
+    @ResponseBody
+    String saveimg(@RequestParam("file") MultipartFile file)throws IOException{
+        String imgname = file.getOriginalFilename();
+        FileUploadUtil.saveFile(file,uploadImgDir);
+        return imgname;
     }
     @RequestMapping("/logoutimpl")
     String logout(Model model, HttpSession httpSession){
@@ -88,14 +102,19 @@ public class MainController {
             if(!encoder.matches(pwd,custDto.getPwd())){
                 throw new Exception();
             }
-            LoginCust loginCust = LoginCust.builder().loginId(id).build();
-            loginCustRepository.save(loginCust);
+            Optional<LoginCust> loginCust = loginCustRepository.findById(id);
+                    //optional은 null checking, nullpointexception 동작안하려고 나옴
+            if(loginCust.isPresent()){
+                throw new Exception();
+            }
+            loginCustRepository.save(LoginCust.builder().loginId(id).build());
 
             httpSession.setAttribute("id",id);
         } catch (Exception e) {
             //throw new RuntimeException(e);
-            model.addAttribute("msg", "ID 또는 PWD가 틀렸습니다.");
+            model.addAttribute("msg", "로그인 되어 있습니다.");
             model.addAttribute("center", "login");
+            return "index";
         }
         return "redirect:/";
     }
@@ -160,5 +179,23 @@ public class MainController {
         model.addAttribute("left","left");
         model.addAttribute("center","weather");
         return "index";
+    }
+
+    @RequestMapping("/pic")
+    String pic(Model model){
+        model.addAttribute("center","pic");
+        return "index";
+    }
+    @RequestMapping("/summary")
+    String summary(Model model){
+        model.addAttribute("center","summary");
+        return "index";
+    }
+    @RequestMapping("/summaryimpl")
+    @ResponseBody
+    Object summaryimpl(@RequestParam("content") String content){
+        JSONObject result = (JSONObject) NcpUtil.getSummary(ncpId, ncpSecret, content);
+        log.info(result.toJSONString());
+        return result;
     }
 }
