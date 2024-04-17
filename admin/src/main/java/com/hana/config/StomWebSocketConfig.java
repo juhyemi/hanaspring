@@ -14,6 +14,7 @@ public class StomWebSocketConfig implements WebSocketMessageBrokerConfigurer{
         registry.addEndpoint("/ws").setAllowedOriginPatterns("*").withSockJS();
         registry.addEndpoint("/wss").setAllowedOriginPatterns("*").withSockJS();
         registry.addEndpoint("/notice").setAllowedOriginPatterns("*").withSockJS();
+        registry.addEndpoint("/chat").setAllowedOriginPatterns("*").withSockJS();
         //registry.addEndpoint("/sendMsg").setAllowedOriginPatterns("http://172.16.21.135").withSockJS();
         //이 url로 접속한 서버에서 /ws로 들어올 수 있게 하겠다.
 //        registry.addEndpoint("/chbot").setAllowedOrigins("http://127.0.0.1").withSockJS();
@@ -23,6 +24,6 @@ public class StomWebSocketConfig implements WebSocketMessageBrokerConfigurer{
     /* 어플리케이션 내부에서 사용할 path를 지정할 수 있음 */
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/send","/send2","/send3");
+        registry.enableSimpleBroker("/send","/send2","/send3","/sendchat");
     }
 }

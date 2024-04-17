@@ -2,6 +2,7 @@ package com.hana.controller;
 
 import com.hana.app.data.dto.BoardDto;
 import com.hana.app.data.dto.CustDto;
+import com.hana.app.data.dto.OcrDto;
 import com.hana.app.data.entity.LoginCust;
 import com.hana.app.repository.LoginCustRepository;
 import com.hana.app.service.BoardService;
@@ -23,10 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 @Controller
 @Slf4j
@@ -43,6 +41,8 @@ public class MainController {
     String whkey;
     @Value("${app.url.serverurl}")
     String serverurl;
+    @Value("${app.url.chatboturl}")
+    String chatboturl;
     @Value("${app.dir.uploadimgdir}")
     String uploadImgDir;
     @Value("${app.key.ncp-id}")
@@ -197,5 +197,34 @@ public class MainController {
         JSONObject result = (JSONObject) NcpUtil.getSummary(ncpId, ncpSecret, content);
         log.info(result.toJSONString());
         return result;
+    }
+    @RequestMapping("/chat2")
+    String chat2(Model model){
+        model.addAttribute("serverurl", serverurl);
+        model.addAttribute("center","chat2");
+        return "index";
+    }
+    @RequestMapping("/ocr")
+    String ocr(Model model){
+        model.addAttribute("center","ocr");
+        return "index";
+    }
+    @RequestMapping("/ocrimpl")
+    public String ocrimpl(Model model, OcrDto ocrDto){
+        String imagename = ocrDto.getImage().getOriginalFilename();
+        FileUploadUtil.saveFile(ocrDto.getImage(),uploadImgDir);
+        JSONObject jsonObject = (JSONObject) OCRUtil.getResult(uploadImgDir,imagename);
+        Map<String, String> map = OCRUtil.getData(jsonObject);
+
+        model.addAttribute("center", "ocr");
+        model.addAttribute("result", map);
+        model.addAttribute("imgname", imagename);
+        return "index";
+    }
+    @RequestMapping("/chatbot")
+    String chatbot(Model model){
+        model.addAttribute("chatboturl", chatboturl);
+        model.addAttribute("center","chatbot");
+        return "index";
     }
 }

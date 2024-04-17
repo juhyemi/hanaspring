@@ -40,13 +40,17 @@ logging:
 app:
   url:
     serverurl: http://172.16.21.135:81
+    chatboturl: http://172.16.21.135:80
   dir:
     imgdir: file:///C:/project/imgs/ #화면 출력용
     uploadimgdir: C:/project/imgs/ #파일 write용
     logdir: file:///C:/project/logs/
   key:
-    wkey: CrsgVgYfMqRWI2oUuL62DG%2BSen%2B1YqxTsFW8TGaV6hb65%2FsV1uqZvbLarIBJWQWqeT9n%2BOgiW76bIBNWqifasw%3D%3D
-    whkey: e4a0707e84837f2e884cd8beb353e1eb
-    ncp-id: coqcbtkfon
-    ncp-secret: vY5MbybmWE1cSNe5AuG6xrRDCkDj2RAjygeNqzG4
+    wkey: ENC(/tLBTyvEyGGI8a6sLMgMedDDkrnNM9HFIb0+nMRivg44wGoalOV4RbWqWtBBn1D8p7kgD9V/ccRUkPlLySnmv7DH6fGmjks8lkGGKY8Z1qvp3wGP0wqVlk+JWIDLvwNIwDtB1nZ5N5/TqyC0O6lTvQ==)
+    whkey: ENC(JI+pJu0dwvSZ+I44uo9zNZEPXIY4cSFgfMYsvoHt8ZNbViRiIFc7E085V/PlvYzy)
+    ncp-id: ENC(NQl2x76S8d0dw/UI8hXWXKkzA6DUs6Lv)
+    ncp-secret: ENC(6dQ73WKFyA2BN8Z8gIE9Sz32Wvb/xe0MRzO1fXYnjeuxXdgyjyIuJoxzidxuTQ3JvNd4Dmnv2cg=)
+    chatbot_key: ENC(HyYgDo3Wr0nfQx13mYWNVssQqk+zNihNhXYM4AF8DppbKRpF3orOZYcp9taYIXbp6EK19Fcu60Q=)
+    chatbot_url: ENC(ZDrgOToCduSkGm/czQ9udy1F21pm4N3ixisMIDjwS/3t+Ihh52K/E9a671wx6u2yInm98eknF10iRkz1T42TyCmJG6rphAohMWGOFvUhHpn+wy1BoCXQ78wbMkj6EWRGuWA9cQZJpHOF8+7nmJs7Gt68UdXG9tHjbGvviihxWYI=)
+
     #서버에서는 /root/imgs 이렇게

@@ -2,8 +2,8 @@
 <!-- JSTL -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--Web Socket Lib-->
-<script src="/webjars/sockjs-client/sockjs.min.js"></script>
-<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+<script src="<c:url value="/webjars/sockjs-client/sockjs.min.js"/>"/>
+<script src="<c:url value="/webjars/stomp-websocket/stomp.min.js"/>"/>
 
 <!DOCTYPE html>
 <html lang="ko">
