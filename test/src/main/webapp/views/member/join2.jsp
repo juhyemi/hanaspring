@@ -44,25 +44,25 @@
             <tr>
                 <td>아이디</td>
                 <td>
-                    <input type="text" name="userID">
-                    <img src="../img/member/btn_iddupl.gif" onclick="">
+                    <input type="text" id="userID" name="userID">
+                    <img src="../img/member/btn_iddupl.gif" id="btn_check">
                     (영문 소문자, 숫자로 4~16자)
                 </td>
             </tr>
             <tr>
                 <td>비밀번호</td>
                 <td>
-                    <input type="password" name="userPW">
+                    <input type="password" id="userPW" name="userPW">
                     영문/숫자/특수문자조합으로 8~16자리. 첫글자는 영문자로 사용
                 </td>
             </tr>
             <tr>
                 <td>비밀번호 확인</td>
-                <td><input type="password" name="userPWCheck"></td>
+                <td><input type="password" id="userPWCheck" name="userPWCheck"></td>
             </tr>
             <tr>
                 <td>이름</td>
-                <td><input type="text"></td>
+                <td><input id="userName" type="text"></td>
             </tr>
             <tr>
                 <td>이메일</td>
@@ -106,8 +106,60 @@
     </div>
     <div class="Information2">부가정보</div>
     <div class="imageBtn2">
-        <input type="image" src="../img/member/btn_confirm.gif">
+        <input type="image" src="../img/member/btn_confirm.gif" id="btn_register">
         <input type="image" src="../img/member/btn_cancel.gif">
     </div>
 
 </div>
+<script>
+    let login = {
+        init: function () {
+            $('#btn_check').click(()=>{
+                let id = $('#userID').val();
+                if(id==''||id==null){
+                    alert('ID를 입력 하세요');
+                    return;
+                }
+                $.ajax({
+                    url:'<c:url value="/member/registercheckid"/>',
+                    data:{
+                        "id":id
+                    },
+                    success:(result)=>{
+                        let msg='사용 불가능 합니다.';
+                        if(result=='1'){
+                            msg = '사용 가능 합니다.';
+                        }
+                        alert(msg);
+                    }
+                })
+            });
+            $('#btn_register').click(function(){
+                let id = $('#userID').val();
+                let pwd = $('#userPWCheck').val();
+                let name = $('#userName').val();
+
+                //html 사이의 text는 .text()로 가져오고 form데이터는 .val()로 가져온다.
+                if(id==''||id==null){
+                    alert('ID를 입력 하세요');
+                    $('#id').focus();
+                    return;
+                }
+                if(pwd==''||pwd==null){
+                    alert('pwd를 입력 하세요');
+                    $('#pwd').focus();
+                    return;
+                }
+                if(name==''||name==null){
+                    alert('name 입력 하세요');
+                    $('#userName').focus();
+                    return;
+                }
+                register.send();
+            });
+        }
+    };
+    $(function () {
+        login.init();
+    });
+</script>

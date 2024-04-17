@@ -109,40 +109,30 @@ public class OCRUtil2 {
         out.flush();
     }
 
-    public static JSONArray getData2(JSONObject obj){
+    public static Map getData2(JSONObject obj){
+        //log.info("checking now"+obj.toJSONString());
         Map<String,String> map = new HashMap<>();
         JSONArray images = (JSONArray) obj.get("images");
         JSONObject jo1 = (JSONObject) images.get(0);
         JSONArray fields = (JSONArray) jo1.get("fields");
+        //JSONArray title = (JSONArray) jo1.get("title");
 
-
-//        //JSONObject biznum_obj = (JSONObject) fields.get(0);
-//        //String biznum = (String)biznum_obj.get("inferText");
-//
-//
-//
         JSONObject period_obj = (JSONObject) fields.get(0);
-        String period = (String)period_obj.get("inferText");
+        String expiration = (String)period_obj.get("inferText");
+        JSONObject cardnumber_obj = (JSONObject) fields.get(1);
+        String cardnumber = (String)cardnumber_obj.get("inferText");
+        JSONObject cardname_obj = (JSONObject) fields.get(2);
+        String cardname = (String)cardname_obj.get("inferText");
+//        JSONObject username_obj = (JSONObject) fields.get(3);
+//        String username = (String)username_obj.get("inferText");
+        //log.info(expiration+" "+cardnumber+" "+cardname+" "+"================================================================================");
 
+        map.put("expiration", expiration);
+        map.put("cardnumber", cardnumber);
+        map.put("cardname", cardname);
+        //map.put("username", username);
 
-//        JSONObject bizowner_obj = (JSONObject) fields.get(1);
-//        String bizowner = (String)bizowner_obj.get("inferText");
-//
-       // log.info(bizname);
-
-//        JSONObject bizdate_obj = (JSONObject) fields.get(2);
-//        String bizdate = (String)bizdate_obj.get("inferText");
-//
-//        JSONObject bizadd_obj = (JSONObject) fields.get(3);
-//        String bizadd = (String)bizadd_obj.get("inferText");
-//
-//        //map.put("biznum", biznum);
-//        map.put("bizname", bizname);
-//        map.put("bizowner", bizowner);
-//        map.put("bizdate", bizdate);
-//        map.put("bizadd", bizadd);
-
-        return fields;
+        return map;
     }
 
 

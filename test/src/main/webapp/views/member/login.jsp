@@ -46,11 +46,11 @@
                     비밀번호
                 </td>
                 <td>
-                    <input type="text" name="loginID"> <br>
-                    <input type="password" name="loginPW">
+                    <input type="text" id="loginID" name="loginID"> <br>
+                    <input type="password" id="loginPW" name="loginPW">
                 </td>
                 <td>
-                    <input class="loginImg" type="image" src="../img/member/btn_login.gif">
+                    <input class="loginImg" id="btn_login" type="image" src="../img/member/btn_login.gif">
                 </td>
             </tr>
         </table>
@@ -77,3 +77,48 @@
 
     </div>
 </div>
+<script>
+    let login = {
+        init: function () {
+            $('#btn_login').click(()=>{
+                let id = $('#loginID').val();
+                let pwd = $('#loginPW').val();
+                if(id==''||id==null){
+                    alert('ID를 입력 하세요');
+                    return;
+                }
+                if(pwd==''||pwd==null){
+                    alert('PW를 입력 하세요');
+                    return;
+                }
+                $.ajax({
+                    url:'<c:url value="/member/loginimpl"/>',
+                    data:{
+                        "id":id,
+                        "pwd":pwd
+                    },
+                    success:(result)=>{
+                        let msg = '로그인 되었습니다.';
+                        if(result=='1'){
+                            msg = '아이디가 존재하지 않습니다.';
+                            alert(msg);
+                            return;
+                        }
+                        if(result=='2'){
+                            msg = '비밀번호가 다릅니다';
+                            alert(msg);
+                            return;
+                        }
+                        if(result=='0'){
+                            alert(msg);
+                            window.location.href="/";
+                        }
+                    }
+                })
+            });
+        }
+    };
+    $(function () {
+        login.init();
+    });
+</script>

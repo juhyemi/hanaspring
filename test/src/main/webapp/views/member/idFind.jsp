@@ -31,20 +31,45 @@
                     <img src="../img/member/txt_email.gif">
                 </td>
                 <td style="width: 80%;">
-                    <input type="text" name="userName">
-                    <input type="text" class="emailText" name="userEmail">
+                    <input type="text" id="userName" name="userName">
+                    <input type="text" class="emailText" id="userEmail" name="userEmail">
                 </td>
             </tr>
         </table>
     </form>
-    <div><input type="image" src="../img/member/btn_confirm.gif" onclick="submit()"></div>
+    <div><input type="image" src="../img/member/btn_confirm.gif" id="btn_submit"></div>
     <div><input type="image" src="../img/member/btn_close.gif" onclick="window.close()"></div>
 </div>
 <script>
-    function submit() {
-        var form = document.idFindForm;
+    let findID = {
+        init: function () {
+            $('#btn_register').click(function(){
+                let id = $('#userID').val();
+                let pwd = $('#userPWCheck').val();
+                let name = $('#userName').val();
 
-        form.submit();
-    }
+                //html 사이의 text는 .text()로 가져오고 form데이터는 .val()로 가져온다.
+                if(id==''||id==null){
+                    alert('ID를 입력 하세요');
+                    $('#id').focus();
+                    return;
+                }
+                if(pwd==''||pwd==null){
+                    alert('pwd를 입력 하세요');
+                    $('#pwd').focus();
+                    return;
+                }
+                if(name==''||name==null){
+                    alert('name 입력 하세요');
+                    $('#userName').focus();
+                    return;
+                }
+                register.send();
+            });
+        }
+    };
+    $(function () {
+        findID.init();
+    });
 </script>
 

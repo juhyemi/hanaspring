@@ -19,10 +19,9 @@ class OCRTests2 {
     void contextLoads() {
         String imgname = "card1.png";
         JSONObject jsonObject = (JSONObject) OCRUtil2.getResult2(dir,imgname);
-        //Map<String, String> map = OCRUtil.getData(jsonObject);
-        //map.values().forEach(txt->{log.info(txt);});
-        log.info(jsonObject.toJSONString());
-        log.info(OCRUtil2.getData2(jsonObject).toJSONString());
+  //      Map<String, String> map = OCRUtil2.getData2(jsonObject);
+//        map.values().forEach(txt->{log.info(txt);});
+          log.info(jsonObject.toJSONString());
     }
 
 }

@@ -52,5 +52,5 @@ app:
     ncp-secret: ENC(6dQ73WKFyA2BN8Z8gIE9Sz32Wvb/xe0MRzO1fXYnjeuxXdgyjyIuJoxzidxuTQ3JvNd4Dmnv2cg=)
     chatbot_key: ENC(HyYgDo3Wr0nfQx13mYWNVssQqk+zNihNhXYM4AF8DppbKRpF3orOZYcp9taYIXbp6EK19Fcu60Q=)
     chatbot_url: ENC(ZDrgOToCduSkGm/czQ9udy1F21pm4N3ixisMIDjwS/3t+Ihh52K/E9a671wx6u2yInm98eknF10iRkz1T42TyCmJG6rphAohMWGOFvUhHpn+wy1BoCXQ78wbMkj6EWRGuWA9cQZJpHOF8+7nmJs7Gt68UdXG9tHjbGvviihxWYI=)
-
+    kakaokey: ENC(5V1dmaHGLlblvyC7dUO/2Gi5vLyg4I10Y945XAACJuEjAIPg0qfcw39qNcfdYaUV)
     #서버에서는 /root/imgs 이렇게
