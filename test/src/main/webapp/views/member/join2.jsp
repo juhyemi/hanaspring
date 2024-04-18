@@ -6,14 +6,13 @@
 <link rel="stylesheet" href="<c:url value="/css/member/join.css"/>">
 <div class="commonSection1">
     <div class="commonContent1">
-        <img src="../img/member/sub-visual02.jpg"
-             style="width: 100%; height: 100%;">
+        <img src='<c:url value="/img/member/sub-visual02.jpg"/>' style="width: 100%; height: 100%;">
         <div class="commonContent2 text-center">
             <div>
                 <h3>MEMBER</h3>
             </div>
             <div>
-                <p><img src="../img/icon-home.png"> > 회원가입</p>
+                <p><img src='<c:url value="/img/icon-home.png"/>'> > 회원가입</p>
             </div>
         </div>
     </div>
@@ -45,7 +44,7 @@
                 <td>아이디</td>
                 <td>
                     <input type="text" id="userID" name="userID">
-                    <img src="../img/member/btn_iddupl.gif" id="btn_check">
+                    <img src='<c:url value="/img/member/btn_iddupl.gif"/>' id="btn_check">
                     (영문 소문자, 숫자로 4~16자)
                 </td>
             </tr>
@@ -106,8 +105,8 @@
     </div>
     <div class="Information2">부가정보</div>
     <div class="imageBtn2">
-        <input type="image" src="../img/member/btn_confirm.gif" id="btn_register">
-        <input type="image" src="../img/member/btn_cancel.gif">
+        <input type="image" src='<c:url value="/img/member/btn_confirm.gif"/>' id="btn_register">
+        <input type="image" src='<c:url value="/img/member/btn_cancel.gif"/>'>
     </div>
 
 </div>

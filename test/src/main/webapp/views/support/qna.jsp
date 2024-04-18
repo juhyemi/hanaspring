@@ -21,14 +21,14 @@
 <!-- COMMON -->
 <div class="commonSection1">
     <div class="commonContent1">
-        <img src="../img/member/sub-visual02.jpg"
+        <img src='<c:url value="/img/member/sub-visual02.jpg"/>'
              style="width: 100%; height: 100%;">
         <div class="commonContent2 text-center">
             <div>
                 <h3>COSTOMER</h3>
             </div>
             <div>
-                <p><img src="../img/icon-home.png"> > 고객지원 > 묻고답하기</p>
+                <p><img src='<c:url value="/img/icon-home.png"/>'> > 고객지원 > 묻고답하기</p>
             </div>
         </div>
     </div>
@@ -51,31 +51,31 @@
             </tr>
             <tr onclick="window.open('/support/enterPassword','비밀번호입력', 'width=430,height=300,location=no,status=no,scrollbars=no')">
                 <td>5</td>
-                <td><img src="../img/customer/icon_sct.gif">문의사항에 대해 자세한 답변 부탁합니다.</td>
+                <td><img src='<c:url value="/img/customer/icon_sct.gif"/>'>문의사항에 대해 자세한 답변 부탁합니다.</td>
                 <td>hong</td>
                 <td>2019-06-19</td>
             </tr>
             <tr onclick="openWindow(4)">
                 <td>4</td>
-                <td><img src="../img/customer/icon_sct.gif">문의사항에 대해 자세한 답변 부탁합니다.</td>
+                <td><img src='<c:url value="/img/customer/icon_sct.gif"/>'>문의사항에 대해 자세한 답변 부탁합니다.</td>
                 <td>hong</td>
                 <td>2019-06-19</td>
             </tr>
             <tr onclick="openWindow(3)">
                 <td>3</td>
-                <td><img src="../img/customer/icon_sct.gif">문의사항에 대해 자세한 답변 부탁합니다.</td>
+                <td><img src='<c:url value="/img/customer/icon_sct.gif"/>'>문의사항에 대해 자세한 답변 부탁합니다.</td>
                 <td>hong</td>
                 <td>2019-06-19</td>
             </tr>
             <tr onclick="openWindow(2)">
                 <td>2</td>
-                <td><img src="../img/customer/icon_sct.gif">문의사항에 대해 자세한 답변 부탁합니다.</td>
+                <td><img src='<c:url value="/img/customer/icon_sct.gif"/>'>문의사항에 대해 자세한 답변 부탁합니다.</td>
                 <td>hong</td>
                 <td>2019-06-19</td>
             </tr>
             <tr onclick="openWindow(1)">
                 <td>1</td>
-                <td><img src="../img/customer/icon_sct.gif">문의사항에 대해 자세한 답변 부탁합니다.</td>
+                <td><img src='<c:url value="/img/customer/icon_sct.gif"/>'>문의사항에 대해 자세한 답변 부탁합니다.</td>
                 <td>hong</td>
                 <td>2019-06-19</td>
             </tr>
@@ -86,8 +86,8 @@
 <!-- search bar -->
 <div class="search container">
     <div>
-        <img onclick="window.location.href='customer02_2.html'"
-             src="../img/customer/write.gif">
+        <img onclick="window.location.href='#'"
+             src='<c:url value="/img/customer/write.gif"/>'>
     </div>
     <table>
         <tr>
@@ -102,7 +102,7 @@
                 <input type="text">
             </td>
             <td>
-                <input type="image" src="../img/customer/search.gif">
+                <input type="image" src='<c:url value="/img/customer/search.gif"/>'>
             </td>
         </tr>
     </table>

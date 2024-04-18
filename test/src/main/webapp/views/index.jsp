@@ -48,21 +48,21 @@
 </div>
 <div class="top d-none d-md-block">
     <div class="topMenu d-none d-md-block container">
-        <span class="home"><a href="/">HO ME</a></span>
+        <span class="home"><a href="/">HOME</a></span>
         <c:if test="${id==null}">
-            <a href='<c:url value="/member/login"/>'> <img src="./img/icon-member.png">&nbsp;&nbsp;LOGIN</a>&nbsp;
-            <a href='<c:url value="/member/join"/>'> <img src="./img/icon-join.png">&nbsp;&nbsp;JOIN</a>
+            <a href='<c:url value="/member/login"/>'> <img src='<c:url value="/img/icon-member.png"/>'/>&nbsp;&nbsp;LOGIN</a>&nbsp;
+            <a href='<c:url value="/member/join"/>'> <img src='<c:url value="/img/icon-join.png"/>'/>&nbsp;&nbsp;JOIN</a>
         </c:if>
         <c:if test="${id!=null}">
-            <a href='<c:url value="/member/logout"/>'> <img src="./img/icon-member.png">LOGOUT</a>
+            <a href='<c:url value="/member/logout"/>'> <img src='<c:url value="/img/icon-member.png"/>'/>&nbsp;&nbsp;LOGOUT </a>
         </c:if>
-        <span><a href="./company/company03.html">CONTACT US</a></span>
+        <span><a href="#">CONTACT US</a></span>
     </div>
 </div>
 <!-- 네비바 -->
 <nav class="navbar navbar-expand-md navbar-light bg-white sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="/"><img src="./img/logo.png" alt="로고"></a>
+        <a class="navbar-brand" href='<c:url value="/"/>'><img src='<c:url value="/img/logo.png"/>' alt="로고"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -80,15 +80,15 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#">회사소개</a>
                     <div class="dropdown-content">
-                        <a href="./company/company01.html">회사개요</a>
+                        <a href="#">회사개요</a>
                         <a href="#">CEO인사말</a>
-                        <a href="./company/company03.html">오시는길</a>
+                        <a href="#">오시는길</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#">사업분야</a>
                     <div class="dropdown-content">
-                        <a href="./business/business01.html">사업분야01</a>
+                        <a href="#">사업분야01</a>
                         <a href="#">사업분야02</a>
                         <a href="#">사업분야03</a>
                     </div>
@@ -96,7 +96,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#">제품안내</a>
                     <div class="dropdown-content">
-                        <a href="./product/product01.html">제품안내01</a>
+                        <a href="#">제품안내01</a>
                         <a href="#">제품안내02</a>
                         <a href="#">제품안내03</a>
                     </div>
@@ -120,7 +120,7 @@
                         <c:if test="${id!=null}">
                             <a href='<c:url value="/support/inquiry"/>' >1:1문의</a>
                             <a href='<c:url value="/support/qna"/>' >묻고답하기</a>
-                            <a href="./customer/customer03.html">FAQ</a>
+                            <a href="#">FAQ</a>
                         </c:if>
 
                     </div>
@@ -156,10 +156,10 @@
         고객지원 : 010-2222-3333, FAX : 070-888-5555, EMAIL : support@gmail.com, 사업자등록번호 : 100-02-00033, 통신판매업 : 제1111-경기-00000호<br>COPYRIGHT(C) 2021 CODINGGANSA. ALL RIGHT RESERVED.</span>
         </div>
         <div>
-            <img src="./img/mf-icon01.png" alt="">
-            <img src="./img/mf-icon02.png" alt="">
-            <img src="./img/mf-icon03.png" alt="">
-            <img src="./img/mf-icon04.png" alt="">
+            <img src='<c:url value="./img/mf-icon01.png"/>' alt="">
+            <img src='<c:url value="./img/mf-icon02.png"/>' alt="">
+            <img src='<c:url value="./img/mf-icon03.png"/>' alt="">
+            <img src='<c:url value="./img/mf-icon04.png"/>' alt="">
         </div>
     </div>
 </div>

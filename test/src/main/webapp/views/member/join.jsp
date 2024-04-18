@@ -30,7 +30,7 @@
                 <h3>MEMBER</h3>
             </div>
             <div>
-                <p><img src="../img/icon-home.png"> > 회원가입</p>
+                <p><img src='<c:url value="/img/icon-home.png"/>'> 회원가입</p>
             </div>
         </div>
     </div>

@@ -27,12 +27,12 @@
                 <td colspan="2">글 작성시 입력한 비밀번호를 입력하세요.</td>
             </tr>
             <tr>
-                <td style="width: 20%;"><img src="../img/customer/txt_pass.gif"></td>
+                <td style="width: 20%;"><img src='<c:url value="/img/customer/txt_pass.gif"/>'></td>
                 <td style="width: 80%;"><input type="password"></td>
             </tr>
 
         </table>
     </form>
-    <div><input type="image" onclick="window.open('/support/qnaDetail')" src="../img/customer/btn_confirm.gif"></div>
-    <div><input class="closeBtn" type="image" onclick="window.close()" src="../img/member/btn_close.gif"></a></div>
+    <div><input type="image" onclick="window.open('/support/qnaDetail')" src='<c:url value="/img/customer/btn_confirm.gif"/>'></div>
+    <div><input class="closeBtn" type="image" onclick="window.close()" src='<c:url value="/img/member/btn_close.gif"/>'></div>
 </div>

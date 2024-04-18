@@ -28,9 +28,9 @@
             </tr>
             <tr>
                 <td style="width: 20%;">
-                    <img src="../img/member/txt_join1.gif">
-                    <img src="../img/member/txt_login_01.gif">
-                    <img src="../img/member/txt_email.gif">
+                    <img src='<c:url value="/img/member/txt_join1.gif"/>'>
+                    <img src='<c:url value="/img/member/txt_login_01.gif"/>'>
+                    <img src='<c:url value="/img/member/txt_email.gif"/>'>
                 </td>
                 <td style="width: 80%;">
                     <input type="text" name="userName">
@@ -40,8 +40,8 @@
             </tr>
         </table>
     </form>
-    <div><input type="image" src="../img/member/btn_confirm.gif" onclick="submit()"></div>
-    <div><input type="image" src="../img/member/btn_close.gif" onclick="window.close()"></div>
+    <div><input type="image" src='<c:url value="/img/member/btn_confirm.gif"/>' onclick="submit()"></div>
+    <div><input type="image" src='<c:url value="/img/member/btn_close.gif"/>' onclick="window.close()"></div>
 </div>
 <script>
     function submit() {

@@ -6,9 +6,9 @@
     <title>로그인</title>
 
     <!-- Main CSS : Header, Main, Footer -->
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/common.css">
-    <link rel="stylesheet" href="../css/member/login.css">
+    <link rel="stylesheet" href='<c:url value="/css/main.css"/>'>
+    <link rel="stylesheet" href='<c:url value="/css/common.css"/>'>
+    <link rel="stylesheet" href='<c:url value="/css/member/login.css"/>'>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
@@ -19,14 +19,14 @@
 
 <div class="commonSection1">
     <div class="commonContent1">
-        <img src="../img/member/sub-visual01.jpg"
+        <img src='<c:url value="/img/member/sub-visual01.jpg"/>'
              style="width: 100%; height: 100%;">
         <div class="commonContent2 text-center">
             <div>
                 <h3>MEMBER</h3>
             </div>
             <div>
-                <p><img src="../img/icon-home.png"> > 로그인</p>
+                <p><img src='<c:url value="/img/icon-home.png"/>'> > 로그인</p>
             </div>
         </div>
     </div>
@@ -50,7 +50,7 @@
                     <input type="password" id="loginPW" name="loginPW">
                 </td>
                 <td>
-                    <input class="loginImg" id="btn_login" type="image" src="../img/member/btn_login.gif">
+                    <input class="loginImg" id="btn_login" type="image" src='<c:url value="/img/member/btn_login.gif"/>'>
                 </td>
             </tr>
         </table>
@@ -61,7 +61,7 @@
                     <td>
                         <input type="image"
                                onclick="window.open('/member/idFind','아이디찾기', 'width=430,height=300,location=no,status=no,scrollbars=no')",
-                               src="../img/member/btn_id_find.gif" >
+                               src='<c:url value="/img/member/btn_id_find.gif"/>'>
                     </td>
                 </tr>
                 <tr>
@@ -69,7 +69,7 @@
                     <td>
                         <input type="image"
                                onclick="window.open('/member/passwordFind','비밀번호찾기', 'width=430,height=300,location=no,status=no,scrollbars=no')",
-                               src="../img/member/btn_pw_find.gif" >
+                               src='<c:url value="/img/member/btn_pw_find.gif"/>' >
                     </td>
                 </tr>
             </table>

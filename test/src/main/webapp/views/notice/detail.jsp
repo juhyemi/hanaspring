@@ -20,21 +20,21 @@
 
 <div class="commonSection1">
     <div class="commonContent1">
-        <img src="../img/member/sub-visual02.jpg"
+        <img src='<c:url value="/img/member/sub-visual02.jpg"/>'
              style="width: 100%; height: 100%;">
         <div class="commonContent2 text-center">
             <div>
                 <h3>COMMUNITY</h3>
             </div>
             <div>
-                <p><img src="../img/icon-home.png"> > 커뮤니티 > 공지사항</p>
+                <p><img src='<c:url value="/img/icon-home.png"/>'> > 커뮤니티 > 공지사항</p>
             </div>
         </div>
     </div>
 </div>
 <!-- COMMON - 드랍다운 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="../index.html"><button class="homeBtn">H</button></a>
+    <a class="navbar-brand" href='<c:url value="/"/>' ><button class="homeBtn">H</button></a>
     <ul class="navbar-nav mr-auto navbar-nav-scroll"
         style="max-height: 100px;">
 
@@ -62,7 +62,7 @@
                 공지사항
             </a>
             <ul class="dropdown-menu asd">
-                <li><a class="dropdown-item" href="../notice/community01.html">공지사항</a></li>
+                <li><a class="dropdown-item" href="#">공지사항</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">홍보자료</a></li>
                 <li><hr class="dropdown-divider"></li>
@@ -95,7 +95,7 @@
         </table>
         <div>
             <input type="image" onclick="window.location.href = '<c:out value="/notice/list"/>'"
-                   src="../img/community/list.gif">
+                   src='<c:url value="/img/community/list.gif"/>'>
         </div>
     </div>
 

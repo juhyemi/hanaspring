@@ -20,14 +20,14 @@
 <!-- COMMON -->
 <div class="commonSection1">
     <div class="commonContent1">
-        <img src="../img/member/sub-visual02.jpg"
+        <img src='<c:url value="/img/member/sub-visual02.jpg"/>'
              style="width: 100%; height: 100%;">
         <div class="commonContent2 text-center">
             <div>
                 <h3>COSTOMER</h3>
             </div>
             <div>
-                <p><img src="../img/icon-home.png"> > 고객지원 > 묻고답하기</p>
+                <p><img src='<c:url value="/img/icon-home.png"/>'> > 고객지원 > 묻고답하기</p>
             </div>
         </div>
     </div>
@@ -63,7 +63,7 @@
         </table>
     </div>
     <div class="list">
-        <img src="../img/customer/list.gif"
+        <img src='<c:url value="/img/customer/list.gif"/>'
              onclick="window.location.href='<c:url value="/support/qna"/>'">
     </div>
 </div>

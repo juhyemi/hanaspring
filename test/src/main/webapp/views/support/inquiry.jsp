@@ -23,21 +23,21 @@
 <!-- COMMON -->
 <div class="commonSection1">
     <div class="commonContent1">
-        <img src="../img/member/sub-visual02.jpg"
+        <img src='<c:url value="/img/member/sub-visual02.jpg"/>'
              style="width: 100%; height: 100%;">
         <div class="commonContent2 text-center">
             <div>
                 <h3>COSTOMER</h3>
             </div>
             <div>
-                <p><img src="../img/icon-home.png"> > 고객지원 > 1:1문의</p>
+                <p><img src='<c:url value="/img/icon-home.png"/>'> > 고객지원 > 1:1문의</p>
             </div>
         </div>
     </div>
 </div>
 <!-- COMMON - 드랍다운 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="../index.html"><button class="homeBtn">H</button></a>
+    <a class="navbar-brand" href='<c:url value="/"/>'<button class="homeBtn">H</button></a>
     <ul class="navbar-nav mr-auto navbar-nav-scroll"
         style="max-height: 100px;">
 
@@ -65,11 +65,11 @@
                 1:1문의
             </a>
             <ul class="dropdown-menu asd">
-                <li><a class="dropdown-item" href="../customer/costomer01.html">1:1문의</a></li>
+                <li><a class="dropdown-item" href='<c:url value="#"/>'>1:1문의</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="../customer/costomer02.html">묻고답하기</a></li>
+                <li><a class="dropdown-item" href="#">묻고답하기</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="../customer/costomer03.html">FAQ</a></li>
+                <li><a class="dropdown-item" href="#">FAQ</a></li>
             </ul>
         </li>
     </ul>
@@ -122,7 +122,7 @@
         </form>
     </div>
     <div class="btn">
-        <input type="image" src="../img/customer/btn_confirm.gif" onclick="submit()">
-        <input type="image" src="../img/customer/btn_cancel.gif">
+        <input type="image" src='<c:url value="/img/customer/btn_confirm.gif"/>' onclick="submit()">
+        <input type="image" src='<c:url value="/img/customer/btn_cancel.gif"/>'>
     </div>
 </div>
