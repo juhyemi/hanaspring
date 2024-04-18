@@ -27,11 +27,11 @@ public class MemberController {
         model.addAttribute("center",path+"login");
         return "index";
     }
-    @RequestMapping("/join")
-    String join(Model model) throws Exception{
-        model.addAttribute("center",path+"join");
-        return "index";
-    }
+//    @RequestMapping("/join")
+//    String join(Model model) throws Exception{
+//        model.addAttribute("center",path+"join");
+//        return "index";
+//    }
     @RequestMapping("/join2")
     String join2(Model model) throws Exception{
         model.addAttribute("center",path+"join2");

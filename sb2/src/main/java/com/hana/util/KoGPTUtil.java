@@ -1,27 +1,23 @@
-package com.hana.kakao;
+package com.hana.util;
 
-import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.junit.jupiter.api.Test;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
-@SpringBootTest
-@Slf4j
-class KakaoTests3 {
+public class KoGPTUtil {
 
-    @Value("${app.key.kakao_rest_key}")
-    String key;
-
-    @Test
-    void contextLoads() throws Exception {
-        String apiURL = "https://api.kakaobrain.com/v2/inference/karlo/t2i";
+    public static String getMsg(String key, String msg) throws IOException, ParseException {
+        String apiURL = "https://api.kakaobrain.com/v1/inference/kogpt/generation";
         URL url = new URL(apiURL);
         HttpURLConnection con = (HttpURLConnection)url.openConnection();
         con.setRequestMethod("POST");
@@ -32,10 +28,8 @@ class KakaoTests3 {
         //  String postParams = "content=" + text;
         con.setDoOutput(true);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("version","v2.1");
-        jsonObject.put("prompt","바닷가에 귀여운 꼬마");
-        jsonObject.put("height",1024);
-        jsonObject.put("width",1024);
+        jsonObject.put("prompt",msg);
+        jsonObject.put("max_tokens",120);
 
 
         DataOutputStream wr = new DataOutputStream(con.getOutputStream());
@@ -56,13 +50,14 @@ class KakaoTests3 {
             response.append(inputLine);
         }
         br.close();
-        log.info(response.toString());
 
+        JSONParser jsonParser = new JSONParser();
+        JSONObject returnObject = null;
+        returnObject = (JSONObject) jsonParser.parse(response.toString());
+        JSONArray ja = (JSONArray) returnObject.get("generations");
+        JSONObject jo = (JSONObject) ja.get(0);
+        String result = (String) jo.get("text");
 
-
-
-
-
+        return result;
     }
-
 }

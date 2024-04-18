@@ -51,7 +51,7 @@
         <span class="home"><a href="/">HOME</a></span>
         <c:if test="${id==null}">
             <a href='<c:url value="/member/login"/>'> <img src='<c:url value="/img/icon-member.png"/>'/>&nbsp;&nbsp;LOGIN</a>&nbsp;
-            <a href='<c:url value="/member/join"/>'> <img src='<c:url value="/img/icon-join.png"/>'/>&nbsp;&nbsp;JOIN</a>
+            <a href='<c:url value="/member/join2"/>'> <img src='<c:url value="/img/icon-join.png"/>'/>&nbsp;&nbsp;JOIN</a>
         </c:if>
         <c:if test="${id!=null}">
             <a href='<c:url value="/member/logout"/>'> <img src='<c:url value="/img/icon-member.png"/>'/>&nbsp;&nbsp;LOGOUT </a>

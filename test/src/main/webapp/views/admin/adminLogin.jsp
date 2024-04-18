@@ -34,7 +34,7 @@
 <div class="commonSection1">
     <div class="commonContent1">
         <img
-                src="/img/member/sub-visual01.jpg"
+                src='<c:url value="/img/member/sub-visual01.jpg"/>'
                 style="width: 100%; height: 100%"
         />
         <div class="commonContent2 text-center">
@@ -42,7 +42,7 @@
                 <h3>ADMIN</h3>
             </div>
             <div>
-                <p><img src="/img/icon-home.png" /> > 관리자 로그인</p>
+                <p><img src='<c:url value="/img/icon-home.png"/>' /> > 관리자 로그인</p>
             </div>
         </div>
     </div>
@@ -72,7 +72,7 @@
                                 class="loginImg"
                                 name="submit"
                                 value="submit"
-                                src="../img/member/btn_login.gif"
+                                src='<c:url value="/img/member/btn_login.gif"/>'
                         />
                     </td>
                 </tr>
@@ -102,10 +102,10 @@
           >
         </div>
         <div>
-            <img src="/img/mf-icon01.png" alt="" />
-            <img src="/img/mf-icon02.png" alt="" />
-            <img src="/img/mf-icon03.png" alt="" />
-            <img src="/img/mf-icon04.png" alt="" />
+            <img src='<c:url value="/img/mf-icon01.png"/>' alt="" />
+            <img src='<c:url value="/img/mf-icon02.png"/>' alt="" />
+            <img src='<c:url value="/img/mf-icon03.png"/>' alt="" />
+            <img src='<c:url value="/img/mf-icon04.png"/>' alt="" />
         </div>
     </div>
 </div>

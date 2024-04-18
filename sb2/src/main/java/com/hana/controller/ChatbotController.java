@@ -2,6 +2,7 @@ package com.hana.controller;
 
 import com.hana.app.data.msg.Msg;
 import com.hana.util.ChatBotUtil;
+import com.hana.util.KoGPTUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,16 +23,19 @@ public class ChatbotController {
     public String apiUrl;
     @Value("${app.key.chatbot_key}")
     public String secretKey;
-
+    @Value("${app.key.kakaokey}")
+    String key;
 
     @MessageMapping("/sendchatbot")
     public void receiveme(Msg msg, SimpMessageHeaderAccessor headerAccessor) throws Exception {
         log.info(msg.toString());
         String id = msg.getSendid();
         template.convertAndSend("/send/me/"+id,msg);
-        String result = ChatBotUtil.getMsg(apiUrl, secretKey, msg.getContent1());
+//        String result = ChatBotUtil.getMsg(apiUrl, secretKey, msg.getContent1());
+        String result = KoGPTUtil.getMsg(key, msg.getContent1());
         msg.setContent1(result);
-        msg.setSendid("ChatBot");
+//        msg.setSendid("ChatBot");
+        msg.setSendid("KoBot");
         template.convertAndSend("/send/me/"+id,msg);
     }
 }
