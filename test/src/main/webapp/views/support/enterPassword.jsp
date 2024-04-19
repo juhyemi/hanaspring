@@ -17,7 +17,7 @@
 
 </head>
 <body>
-<div class="main">
+<div class="main" id="main">
     <form action="">
         <table>
             <tr>
@@ -28,11 +28,50 @@
             </tr>
             <tr>
                 <td style="width: 20%;"><img src='<c:url value="/img/customer/txt_pass.gif"/>'></td>
-                <td style="width: 80%;"><input type="password"></td>
+                <td style="width: 80%;"><input id="password" type="password"></td>
             </tr>
 
         </table>
     </form>
-    <div><input type="image" onclick="window.open('/support/qnaDetail')" src='<c:url value="/img/customer/btn_confirm.gif"/>'></div>
+    <div><input type="image" id="btn_chkpwd" src='<c:url value="/img/customer/btn_confirm.gif"/>'></div>
     <div><input class="closeBtn" type="image" onclick="window.close()" src='<c:url value="/img/member/btn_close.gif"/>'></div>
 </div>
+
+<script>
+    let chkpwd={
+        init:function(){
+            $('#btn_chkpwd').click(()=>{
+                let pwd = $('#password').val();
+                let selNo = ${selectNo};
+                if(pwd==''||pwd==null) {
+                    alert("비밀번호를 입력하세요");
+                    return;
+                }
+                chkpwd.send(pwd, selNo);
+            });
+        },
+        send:function(pwd, selNo){
+            $.ajax({
+                url:'<c:url value="/support/checkpwd"/>',
+                data:{
+                    "pwd":pwd,
+                    "selno":selNo
+                },
+                success:(result)=>{
+                    let msg = "비밀번호가 맞지 않습니다.";
+                    if(result==0) {
+                        const element = document.getElementById('main');
+                        element.innerHTML = `<div>` + msg + `<div><div><input type="image" src='<c:url value="/img/member/btn_close.gif"/>' onclick="window.close()"></div>`;
+                    }else if(result==1){
+                        window.opener.location.href='<c:url value="/support/qnaDetail"/>/'+selNo;
+                        window.close();
+                    }
+                },
+                error:(e)=>{console.log(e)}
+            })
+        }
+    };
+    $(function(){
+        chkpwd.init();
+    });
+</script>

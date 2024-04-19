@@ -16,7 +16,7 @@
 
 </head>
 <body>
-<div class="main">
+<div class="main" id="main">
     <form action="#" name="idFindForm">
         <table>
             <tr>
@@ -43,29 +43,36 @@
 <script>
     let findID = {
         init: function () {
-            $('#btn_register').click(function(){
-                let id = $('#userID').val();
-                let pwd = $('#userPWCheck').val();
+            $('#btn_submit').click(function(){
                 let name = $('#userName').val();
+                let email = $('#userEmail').val();
 
-                //html 사이의 text는 .text()로 가져오고 form데이터는 .val()로 가져온다.
-                if(id==''||id==null){
-                    alert('ID를 입력 하세요');
-                    $('#id').focus();
-                    return;
-                }
-                if(pwd==''||pwd==null){
-                    alert('pwd를 입력 하세요');
-                    $('#pwd').focus();
-                    return;
-                }
                 if(name==''||name==null){
-                    alert('name 입력 하세요');
+                    alert('이름을 입력 하세요');
                     $('#userName').focus();
                     return;
                 }
-                register.send();
+                if(email==''||email==null){
+                    alert('이메일을 입력 하세요');
+                    $('#userEmail').focus();
+                    return;
+                }
+                findID.send(name,email);
             });
+        },
+        send:function (name,email){
+            $.ajax({
+                url:'<c:url value="/member/findidimpl"/>',
+                data:{
+                    "name":name,
+                    "email":email
+                },
+                success:(result)=>{
+                        const element = document.getElementById('main');
+                        element.innerHTML = `<div>`+result+`<div><div><input type="image" src='<c:url value="/img/member/btn_close.gif"/>' onclick="window.close()"></div>`;
+                },
+                error:(e)=>{console.log(e)}
+            })
         }
     };
     $(function () {

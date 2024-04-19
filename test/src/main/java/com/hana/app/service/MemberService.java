@@ -4,11 +4,13 @@ import com.hana.app.data.dto.MemberDto;
 import com.hana.app.frame.TestService;
 import com.hana.app.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MemberService implements TestService<String, MemberDto> {
     final MemberRepository memberRepository;
     @Override
@@ -34,5 +36,16 @@ public class MemberService implements TestService<String, MemberDto> {
     @Override
     public List<MemberDto> get() throws Exception {
         return memberRepository.select();
+    }
+
+    public String getId(String name, String email) throws Exception {
+        log.info("MemberService==============");
+        log.info(name+"=============="+email);
+        return memberRepository.selectId(name,email);
+    }
+    public String getPwd(String id, String name, String email) throws Exception {
+        log.info("MemberService==============");
+        log.info(name+"=============="+email);
+        return memberRepository.selectPwd(id,name,email);
     }
 }

@@ -2,6 +2,7 @@
 <!-- JSTL -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="<c:url value="/css/main.css"/>">
 <link rel="stylesheet" href="<c:url value="/css/common.css"/>">
 <link rel="stylesheet" href="<c:url value="/css/customer/customer02.css"/>">
@@ -49,36 +50,14 @@
                 <th>작성자</th>
                 <th>작성일</th>
             </tr>
-            <tr onclick="window.open('/support/enterPassword','비밀번호입력', 'width=430,height=300,location=no,status=no,scrollbars=no')">
-                <td>5</td>
-                <td><img src='<c:url value="/img/customer/icon_sct.gif"/>'>문의사항에 대해 자세한 답변 부탁합니다.</td>
-                <td>hong</td>
-                <td>2019-06-19</td>
-            </tr>
-            <tr onclick="openWindow(4)">
-                <td>4</td>
-                <td><img src='<c:url value="/img/customer/icon_sct.gif"/>'>문의사항에 대해 자세한 답변 부탁합니다.</td>
-                <td>hong</td>
-                <td>2019-06-19</td>
-            </tr>
-            <tr onclick="openWindow(3)">
-                <td>3</td>
-                <td><img src='<c:url value="/img/customer/icon_sct.gif"/>'>문의사항에 대해 자세한 답변 부탁합니다.</td>
-                <td>hong</td>
-                <td>2019-06-19</td>
-            </tr>
-            <tr onclick="openWindow(2)">
-                <td>2</td>
-                <td><img src='<c:url value="/img/customer/icon_sct.gif"/>'>문의사항에 대해 자세한 답변 부탁합니다.</td>
-                <td>hong</td>
-                <td>2019-06-19</td>
-            </tr>
-            <tr onclick="openWindow(1)">
-                <td>1</td>
-                <td><img src='<c:url value="/img/customer/icon_sct.gif"/>'>문의사항에 대해 자세한 답변 부탁합니다.</td>
-                <td>hong</td>
-                <td>2019-06-19</td>
-            </tr>
+            <c:forEach items="${qList}" var="q" varStatus="status">
+                <tr onclick="window.open('<c:out value="/support/enterPassword"/>/${q.qnaIdx}','비밀번호입력', 'width=430,height=300,location=no,status=no,scrollbars=no')">
+                    <td>${status.index+1}</td>
+                    <td>${q.qnaTitle}</td>
+                    <td>${q.qnaName}</td>
+                    <td><fmt:formatDate  value="${q.qnaDate}" pattern="yyyy-MM-dd" /></td>
+                </tr>
+            </c:forEach>
         </table>
     </div>
 </div>

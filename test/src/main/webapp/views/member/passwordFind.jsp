@@ -16,7 +16,7 @@
 
 </head>
 <body>
-<div class="main">
+<div class="main" id="main">
     <form action="#" name="passwordFindForm">
         <table>
             <tr>
@@ -33,21 +33,60 @@
                     <img src='<c:url value="/img/member/txt_email.gif"/>'>
                 </td>
                 <td style="width: 80%;">
-                    <input type="text" name="userName">
-                    <input type="text" class="idText" name="userID">
-                    <input type="text" class="emailText" name="userEmail">
+                    <input type="text" id="userName" name="userName">
+                    <input type="text" id="userId" class="idText" name="userID">
+                    <input type="text" id="userEmail" class="emailText" name="userEmail">
                 </td>
             </tr>
         </table>
     </form>
-    <div><input type="image" src='<c:url value="/img/member/btn_confirm.gif"/>' onclick="submit()"></div>
+    <div><input type="image" src='<c:url value="/img/member/btn_confirm.gif"/>' id="btn_submit"></div>
     <div><input type="image" src='<c:url value="/img/member/btn_close.gif"/>' onclick="window.close()"></div>
 </div>
 <script>
-    function submit() {
-        var form = document.passwordFindForm;
+    let findPWD = {
+        init: function () {
+            $('#btn_submit').click(function(){
+                let id=$('#userId').val();
+                let name = $('#userName').val();
+                let email = $('#userEmail').val();
+                if(name==''||name==null){
+                    alert('이름을 입력 하세요');
+                    $('#userName').focus();
+                    return;
+                }
+                if(id==''||id==null){
+                    alert('아이디를 입력 하세요');
+                    $('#userId').focus();
+                    return;
+                }
 
-        form.submit();
-    }
+                if(email==''||email==null){
+                    alert('이메일을 입력 하세요');
+                    $('#userEmail').focus();
+                    return;
+                }
+               findPWD.send(id,name,email);
+            });
+        },
+        send:function(id,name,email){
+            $.ajax({
+                url:'<c:url value="/member/findpwdimpl"/>',
+                data:{
+                    "id":id,
+                    "name":name,
+                    "email":email
+                },
+                success:(result)=>{
+                    const element = document.getElementById('main');
+                    element.innerHTML = `<div>`+result+`<div><div><input type="image" src='<c:url value="/img/member/btn_close.gif"/>' onclick="window.close()"></div>`;
+                },
+                error:(e)=>{console.log(e)}
+            })
+        }
+    };
+    $(function () {
+        findPWD.init();
+    });
 </script>
 </body>

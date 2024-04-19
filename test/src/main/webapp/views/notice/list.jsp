@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!-- JSTL -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -82,39 +83,20 @@
         <div>공지사항</div>
         <div>The design and maintenance are excellent.</div>
     </div>
-    <div class="Notice">
+    <div class="Notice" id="searchTable">
         <table>
             <tr>
                 <th>번호</th>
                 <th>제목</th>
                 <th>작성일</th>
             </tr>
-            <tr onclick="window.location.href='<c:out value="/notice/detail"/>'">
-                <td>5</td>
-                <td>새로운 공지사항을 알려드립니다.</td>
-                <td>2019-06-19</td>
-
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>새로운 공지사항을 알려드립니다.</td>
-                <td>2019-06-19</td>
-            </tr>
-            <tr onclick="window.location.href='#'">
-                <td>3</td>
-                <td>새로운 공지사항을 알려드립니다.</td>
-                <td>2019-06-19</td>
-            </tr>
-            <tr onclick="window.location.href='community01_1.html?no=2'">
-                <td>2</td>
-                <td>새로운 공지사항을 알려드립니다.</td>
-                <td>2019-06-19</td>
-            </tr>
-            <tr onclick="window.location.href='community01_1.html?no=1'">
-                <td>1</td>
-                <td>새로운 공지사항을 알려드립니다.</td>
-                <td>2019-06-19</td>
-            </tr>
+            <c:forEach items="${noticeList}" var="n" varStatus="status">
+                <tr>
+                    <td>${status.index+1}</td>
+                    <td> <a href='<c:out value="/notice/detail"/>/${n.noticeIdx}'>${n.noticeTitle}</a></td>
+                    <td><fmt:formatDate  value="${n.noticeDate}" pattern="yyyy-MM-dd" /></td>
+                </tr>
+            </c:forEach>
         </table>
     </div>
 </div>
@@ -125,18 +107,70 @@
     <table>
         <tr>
             <td>
-                <select name="내용" id="">
-                    <option value="">제목</option>
-                    <option value="">내용</option>
-                    <option value="">작성자</option>
+                <select name="category">
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
                 </select>
             </td>
             <td>
-                <input type="text">
+                <input id="searchWord" type="text">
             </td>
             <td>
-                <input type="image" src='<c:url value="/img/community/search.gif"/>'>
+                <input type="image" id="btn_search" src='<c:url value="/img/community/search.gif"/>'>
             </td>
         </tr>
     </table>
 </div>
+<script>
+    let noticeLs = {
+        init: function () {
+            let category='title';
+            $("select[name=category]").change(function(){
+                category = $(this).val();
+            });
+            $('#btn_search').click(function(){
+                let searchWord = $('#searchWord').val();
+                if(searchWord==''||searchWord==null){
+                    alert('검색어를 입력 하세요');
+                    $('#searchWord').focus();
+                    return;
+                }
+                noticeLs.send(category, searchWord);
+            });
+        },
+        send:function (category,searchWord){
+            $.ajax({
+                url:'<c:url value="/notice/search"/>',
+                data:{
+                    "category":category,
+                    "word":searchWord
+                },
+                success:(res)=>{
+                    //window.location.href='<c:url value="/notice/searchresult"/>';
+                    let result = "결과가 없습니다.";
+                    if(res.length>0) {
+                        result = "<table><tr><th>번호</th><th>제목</th> <th>작성일</th></tr>";
+                        for (let i = 1; i <= res.length; i++) {
+                            result += `<tr><td>`;
+                            result += i
+                            result += `</td><td><a href='<c:out value="/notice/detail"/>/`;
+                            result += res[i - 1].noticeIdx;
+                            result += `'>`;
+                            result += res[i - 1].noticeTitle;
+                            result += `</a></td><td>`;
+                            result += res[i - 1].noticeDate;
+                            result += `</td></tr>`
+                        }
+                        result += "</table>";
+                    }
+                    const element = document.getElementById('searchTable');
+                    element.innerHTML = result;
+                },
+                error:(e)=>{console.log(e)}
+            })
+        }
+    };
+    $(function () {
+        noticeLs.init();
+    });
+</script>

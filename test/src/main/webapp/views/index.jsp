@@ -74,7 +74,7 @@
                 <li class="nav-item d-sm-block d-md-none ljoin">
 
                         <a href='<c:url value="/member/login"/>'> <img src="./img/icon-member.png">&nbsp;&nbsp;Login</a>&nbsp;
-                        <a href='<c:url value="/member/join"/>'> <img src="./img/icon-join.png">&nbsp;&nbsp;Join</a>
+                        <a href='<c:url value="/member/join2"/>'> <img src="./img/icon-join.png">&nbsp;&nbsp;Join</a>
 
                 </li>
                 <li class="nav-item dropdown">
@@ -113,16 +113,15 @@
                     <a class="nav-link" href="#">고객지원</a>
                     <div class="dropdown-content">
                         <c:if test="${id==null}">
-                            <a onclick="needlogin()" >1:1문의</a>
-                            <a onclick="needlogin()" >묻고답하기</a>
-                            <a onclick="needlogin()" >FAQ</a>
+                            <a onclick="needlogin()" style="color:whitesmoke">1:1문의</a>
+                            <a onclick="needlogin()" style="color:whitesmoke" >묻고답하기</a>
+                            <a onclick="needlogin()" style="color:whitesmoke" >FAQ</a>
                         </c:if>
                         <c:if test="${id!=null}">
                             <a href='<c:url value="/support/inquiry"/>' >1:1문의</a>
                             <a href='<c:url value="/support/qna"/>' >묻고답하기</a>
                             <a href="#">FAQ</a>
                         </c:if>
-
                     </div>
                 </li>
             </ul>

@@ -21,30 +21,30 @@ import java.util.List;
 public class MemberController {
     final MemberService memberService;
     String path="member/";
+    //로그인 페이지 이동
     @RequestMapping("/login")
     String login(Model model) throws Exception{
         log.info("checking");
         model.addAttribute("center",path+"login");
         return "index";
     }
-//    @RequestMapping("/join")
-//    String join(Model model) throws Exception{
-//        model.addAttribute("center",path+"join");
-//        return "index";
-//    }
+    //회원가입 페이지이동
     @RequestMapping("/join2")
     String join2(Model model) throws Exception{
         model.addAttribute("center",path+"join2");
         return "index";
     }
+    //아이디 찾기 페이지 이동
     @RequestMapping("/idFind")
     String idFind() throws Exception{
         return path+"idFind";
     }
+    //비밀번호 찾기 페이지 이동
     @RequestMapping("/passwordFind")
     String passwordFind() throws Exception{
         return path+"passwordFind";
     }
+    //회원가입시 아이디 확인
     @RequestMapping("/registercheckid")
     @ResponseBody
     int registercheckid(@RequestParam("id") String id) throws Exception{
@@ -52,6 +52,7 @@ public class MemberController {
         if(dto==null) return 1;
         return 0;
     }
+    //로그인 기능
     @RequestMapping("/loginimpl")
     @ResponseBody
     int loginimpl(@RequestParam("id") String id, @RequestParam("pwd") String pwd, HttpSession httpSession) throws Exception{
@@ -62,11 +63,36 @@ public class MemberController {
         httpSession.setAttribute("name",dto.getMemberName());
         return 0;
     }
+    //로그아웃 기능
     @RequestMapping("/logout")
     String logout(HttpSession httpSession){
         if(httpSession != null){
             httpSession.invalidate();
         }
         return "redirect:/";
+    }
+    //아이디 찾기 기능
+    @RequestMapping("findidimpl")
+    @ResponseBody
+    public String findidimpl(@RequestParam("name") String name, @RequestParam("email") String email) throws Exception {
+        String findid = memberService.getId(name, email);
+        String msg = "회원정보가 없습니다.";
+        if(findid!=null){
+            msg ="회원님의 아이디는 "+findid+" 입니다.";
+        }
+        return msg;
+    }
+    //비밀번호 찾기 기능
+    @RequestMapping("findpwdimpl")
+    @ResponseBody
+    public String findidimpl(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("email") String email) throws Exception {
+        log.info(id+" "+name+" "+email);
+        String findpwd = memberService.getPwd(id, name, email);
+        log.info(findpwd);
+        String msg = "회원정보가 없습니다.";
+        if(findpwd!=null){
+            msg ="회원님의 암호는 "+findpwd+" 입니다.";
+        }
+        return msg;
     }
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hana.app.repository.InqueryRepository">
+
+    <insert id="insert" parameterType="inqueryDto">
+        insert into company_one2one values(0,#{one2oneName},#{one2onePhone},#{one2oneEmail},#{one2oneAddress},#{one2oneTitle},#{one2oneContent},now())
+    </insert>
+
+</mapper>

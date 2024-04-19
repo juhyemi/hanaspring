@@ -2,6 +2,8 @@
 <!-- JSTL -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <link rel="stylesheet" href="<c:url value="/css/main.css"/>">
 <link rel="stylesheet" href="<c:url value="/css/common.css"/>">
 <link rel="stylesheet" href="<c:url value="/css/customer/customer03.css"/>">
@@ -43,21 +45,19 @@
         <table>
             <tr>
                 <td>제목</td>
-                <td>묻고답하기</td>
+                <td>${getQna.qnaTitle}</td>
             </tr>
             <tr>
                 <td>작성자</td>
-                <td>작성자1</td>
+                <td>${getQna.qnaName}</td>
             </tr>
             <tr>
                 <td>작성일</td>
-                <td>2024-04-16</td>
+                <td><fmt:formatDate  value="${getQna.qnaDate}" pattern="yyyy-MM-dd" /></td>
             </tr>
             <tr>
-                <td colspan="2">
-                    <div style="text">
-                        내용
-                    </div>
+                <td colspan="2" style="background-color:#fff; font-weight: 400;">
+                        ${getQna.qnaContent}
                 </td>
             </tr>
         </table>

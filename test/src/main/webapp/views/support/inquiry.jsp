@@ -83,7 +83,7 @@
         <div>The design and maintenance are excellent.</div>
     </div>
     <div class="question">
-        <form action="" name="questionForm">
+        <form id="questionForm" name="questionForm">
             <table>
                 <tr>
                     <td>구분</td>
@@ -96,33 +96,85 @@
                 </tr>
                 <tr>
                     <td>성명</td>
-                    <td><input type="text" class="inputStyle1" name="name"></td>
+                    <td><input type="text" class="inputStyle1" id="name" name="one2oneName"></td>
                 </tr>
                 <tr>
                     <td>전화번호</td>
-                    <td><input type="text" class="inputStyle1" name="tel"></td>
+                    <td><input type="text" class="inputStyle1" id="tel" name="one2onePhone"></td>
                 </tr>
                 <tr>
                     <td>이메일</td>
-                    <td><input type="text" class="inputStyle2" name="email"></td>
+                    <td><input type="text" class="inputStyle2" id="email" name="one2oneEmail"></td>
                 </tr>
                 <tr>
                     <td>주소</td>
-                    <td><input type="text" class="inputStyle2" name="address"></td>
+                    <td><input type="text" class="inputStyle2" id="address" name="one2oneAddress"></td>
                 </tr>
                 <tr>
                     <td>제목</td>
-                    <td><input type="text" class="inputStyle2" name="title"></td>
+                    <td><input type="text" class="inputStyle2" id="title" name="one2oneTitle"></td>
                 </tr>
                 <tr>
                     <td>설명</td>
-                    <td><textarea name="desc" rows="10" style="width: 90%;"></textarea></td>
+                    <td><textarea id="description" rows="10" style="width: 90%;" name="one2oneContent"></textarea></td>
                 </tr>
             </table>
         </form>
     </div>
     <div class="btn">
-        <input type="image" src='<c:url value="/img/customer/btn_confirm.gif"/>' onclick="submit()">
+        <input type="image" id="btn_submit" src='<c:url value="/img/customer/btn_confirm.gif"/>'>
         <input type="image" src='<c:url value="/img/customer/btn_cancel.gif"/>'>
     </div>
 </div>
+<script>
+    let inquery={
+        init:function(){
+            $('#btn_submit').click(()=>{
+                var name = $('#name').val();
+                var tel = $('#tel').val();
+                var email = $('#email').val();
+                var address = $('#address').val();
+                var title = $('#title').val();
+                var description = $('#description').val();
+                if(name==''||name==null) {
+                    alert("이름을 입력하세요");
+                    return;
+                }
+                if(tel==''||tel==null) {
+                    alert("전화번호를 입력하세요");
+                    return;
+                }
+                if(email==''||email==null) {
+                    alert("이메일을 입력하세요");
+                    return;
+                }
+                if(address==''||address==null) {
+                    alert("주소를 입력하세요");
+                    return;
+                }
+                if(title==''||title==null) {
+                    alert("제목을 입력하세요");
+                    return;
+                }
+                if(description==''||description==null) {
+                    alert("설명을 입력하세요");
+                    return;
+                }
+                inquery.send();
+            });
+        },
+        send:function(){
+            let flag = confirm("등록하시겠습니까?");
+            if(flag){
+                $('#questionForm').attr({
+                    'method':'post',
+                    'action':'<c:url value="/support/addInquery"/>'
+                });
+                $('#questionForm').submit();
+            }
+        }
+    };
+    $(function(){
+        inquery.init();
+    });
+</script>

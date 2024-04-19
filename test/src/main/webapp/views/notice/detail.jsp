@@ -2,6 +2,8 @@
 <!-- JSTL -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -83,14 +85,14 @@
         <table>
             <tr>
                 <th>제목</th>
-                <td>새로운 공지사항을 알려드립니다.</td>
+                <td>${noticeDetail.noticeTitle}</td>
             </tr>
             <tr>
                 <th>작성일</th>
-                <td>2019-06-19</td>
+                <td><fmt:formatDate  value="${noticeDetail.noticeDate}" pattern="yyyy-MM-dd" /></td>
             </tr>
             <tr>
-                <td colspan="2">새로운 공지사항을 알려드립니다.</td>
+                <td colspan="2">${noticeDetail.noticeContent}</td>
             </tr>
         </table>
         <div>
