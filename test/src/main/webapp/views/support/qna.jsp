@@ -42,7 +42,7 @@
         <div>묻고답하기</div>
         <div>The design and maintenance are excellent.</div>
     </div>
-    <div class="qna">
+    <div class="qna" id="qna">
         <table>
             <tr>
                 <th>번호</th>
@@ -71,18 +71,81 @@
     <table>
         <tr>
             <td>
-                <select name="내용" id="">
-                    <option value="">제목</option>
-                    <option value="">내용</option>
-                    <option value="">작성자</option>
+                <select name="category" id="">
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
+                    <option value="name">작성자</option>
                 </select>
             </td>
             <td>
-                <input type="text">
+                <input type="text" id="searchWord">
             </td>
             <td>
-                <input type="image" src='<c:url value="/img/customer/search.gif"/>'>
+                <input type="image" id="btn_search" src='<c:url value="/img/customer/search.gif"/>'>
             </td>
         </tr>
     </table>
 </div>
+
+<script>
+    let qnaLs = {
+        init: function () {
+            let category='title';
+            $("select[name=category]").change(function(){
+                category = $(this).val();
+            });
+            $('#btn_search').click(function(){
+                let searchWord = $('#searchWord').val();
+                if(searchWord==''||searchWord==null){
+                    alert('검색어를 입력 하세요');
+                    $('#searchWord').focus();
+                    return;
+                }
+                qnaLs.send(category, searchWord);
+            });
+        },
+        send:function (category,searchWord){
+            $.ajax({
+                url:'<c:url value="/support/search"/>',
+                data:{
+                    "category":category,
+                    "word":searchWord
+                },
+                success:(res)=>{
+                    console.log(res);
+                    let result = "결과가 없습니다.";
+                    if(res.length>0) {
+                        result="<table><tr><th>번호</th><th>제목</th><th>작성자</th><th>작성일</th></tr>";
+                        for(let i=1; i<=res.length; i++){
+                            result+=`<tr onclick="window.open('<c:out value="/support/enterPassword"/>/`
+                            result+=res[i-1].qnaIdx;
+                            result+=`','비밀번호입력', 'width=430,height=300,location=no,status=no,scrollbars=no')">
+                    <td>`;
+                            result+=i;
+                            result+=`</td><td>`
+                            result+=res[i-1].qnaTitle;
+                            result+=`</td><td>`;
+                            result+=res[i-1].qnaName;
+                            result+=`</td><td>`;
+                            const dateinfo = new Date(res[i - 1].qnaDate);
+                            const year = dateinfo.getFullYear();
+                            const month = String(dateinfo.getMonth() + 1).padStart(2, '0');
+                            const day = String(dateinfo.getDate()).padStart(2, '0');
+                            const formattedDate = year+`-`+month+`-`+day;
+                            result+= formattedDate;
+                            result+=`</td></tr>`;
+                        }
+                        result+=`</table>`;
+
+                    }
+                    const element = document.getElementById('qna');
+                    element.innerHTML = result;
+                },
+                error:(e)=>{console.log(e)}
+            })
+        }
+    };
+    $(function () {
+        qnaLs.init();
+    });
+</script>

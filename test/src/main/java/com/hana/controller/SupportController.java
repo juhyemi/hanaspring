@@ -1,6 +1,7 @@
 package com.hana.controller;
 
 import com.hana.app.data.dto.InqueryDto;
+import com.hana.app.data.dto.NoticeDto;
 import com.hana.app.data.dto.QnaDto;
 import com.hana.app.service.InqueryService;
 import com.hana.app.service.QnaService;
@@ -66,5 +67,14 @@ public class SupportController {
         QnaDto dto = qnaService.get(selno);
         if(pwd.equals(dto.getQnaPw())) return"1";
         return "0";
+    }
+    //qna검색
+    @RequestMapping("/search")
+    @ResponseBody
+    List<QnaDto> search(@RequestParam("category") String category, @RequestParam("word") String word) throws Exception{
+        List<QnaDto> searchList = qnaService.getSearch(category, word);
+        log.info("search gogo====================================");
+        searchList.forEach(c->{log.info(c.toString());});
+        return searchList;
     }
 }

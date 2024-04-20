@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,6 +53,14 @@ public class MemberController {
         if(dto==null) return 1;
         return 0;
     }
+    //회원가입 기능
+    @RequestMapping("/join")
+    String join(MemberDto memberDto) throws Exception{
+        log.info(memberDto.toString());
+        int n = memberService.add(memberDto);
+        return  "index";
+    }
+
     //로그인 기능
     @RequestMapping("/loginimpl")
     @ResponseBody

@@ -1,6 +1,7 @@
 package com.hana.app.service;
 
 import com.hana.app.data.dto.InqueryDto;
+import com.hana.app.data.dto.NoticeDto;
 import com.hana.app.data.dto.QnaDto;
 import com.hana.app.frame.TestService;
 import com.hana.app.repository.QnaRepository;
@@ -38,5 +39,8 @@ public class QnaService implements TestService<Integer, QnaDto> {
     @Override
     public List<QnaDto> get() throws Exception {
         return qnaRepository.select();
+    }
+    public List<QnaDto> getSearch(String category, String word) throws Exception{
+        return qnaRepository.selectResult(category,word);
     }
 }

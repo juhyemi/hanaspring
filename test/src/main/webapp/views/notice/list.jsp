@@ -158,7 +158,15 @@
                             result += `'>`;
                             result += res[i - 1].noticeTitle;
                             result += `</a></td><td>`;
-                            result += res[i - 1].noticeDate;
+                            //result += res[i - 1].noticeDate;
+                            // noticeDate를 Date 객체로 변환
+                            const noticeDate = new Date(res[i - 1].noticeDate);
+                            // 날짜를 yyyy-mm-dd 형식으로 포맷팅
+                            const year = noticeDate.getFullYear();
+                            const month = String(noticeDate.getMonth() + 1).padStart(2, '0');
+                            const day = String(noticeDate.getDate()).padStart(2, '0');
+                            const formattedDate = year+`-`+month+`-`+day;
+                            result += formattedDate;
                             result += `</td></tr>`
                         }
                         result += "</table>";

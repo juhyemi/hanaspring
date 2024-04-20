@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -21,6 +22,6 @@ public class MemberDto {
     private int memberPwQuestion;
     private String memberPwAnswer;
     private String memberGender;
-    private Date memberBirthDate;
+    private LocalDate memberBirthDate;
     private Date memberJoinDate;
 }

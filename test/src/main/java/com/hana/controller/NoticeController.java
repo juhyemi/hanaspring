@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RequestMapping("/notice")
 @Controller
@@ -47,12 +46,4 @@ public class NoticeController {
        searchList.forEach(c->{log.info(c.toString());});
         return searchList;
     }
-    //검색 결과 페이지
-//    @RequestMapping("/searchresult")
-//    String searchresult(@RequestParam("searchList") List<NoticeDto> searchList, Model model) throws Exception{
-//        model.addAttribute("center",path+"search");
-//        model.addAttribute("noticeList", searchList);
-//
-//        return "index";
-//    }
 }

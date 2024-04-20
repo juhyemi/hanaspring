@@ -10,7 +10,7 @@
         SELECT * FROM COMPANY_NOTICE WHERE NOTICE_IDX = #{no}
     </select>
     <select id="selectResult" parameterType="String" resultType="NoticeDto">
-        SELECT notice_idx, notice_title, notice_content, notice_member_id, DATE_FORMAT(notice_date,'%Y-%m-%d') FROM COMPANY_NOTICE WHERE NOTICE_${category} like CONCAT('%', #{word}, '%')
+        SELECT notice_idx, notice_title, notice_content, notice_member_id, DATE_FORMAT(notice_date,'%Y-%m-%d') as notice_date FROM COMPANY_NOTICE WHERE NOTICE_${category} like CONCAT('%', #{word}, '%')
     </select>
 
 </mapper>

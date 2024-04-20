@@ -19,6 +19,10 @@
           AND MEMBER_NAME=#{name}
           AND MEMBER_EMAIL = #{email}
     </select>
+    <insert id="insert" parameterType="memberDto">
+        insert into company_member
+        values(0,#{memberId},#{memberPw},#{memberName},#{memberEmail},#{memberEmailReceive},#{memberPwQuestion},#{memberPwAnswer},#{memberGender},#{memberBirthDate},now())
+    </insert>
 
 
 </mapper>
