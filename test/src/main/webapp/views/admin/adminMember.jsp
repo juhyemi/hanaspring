@@ -8,12 +8,8 @@
     <!-- 사이드메뉴 -->
     <div id="adminSide">
         <ul>
-            <li><a href="/admin/adminmember" class="adminSideActive">회원 관리</a></li>
-            <li><a href="/admin/adminnotice">공지사항 관리</a></li>
-            <li><a href="/admin_one2one">1:1문의 관리</a></li>
-            <li><a href="/admin_qna">묻고답하기 관리</a></li>
-            <li><a href="/admin_faq">FAQ 관리</a></li>
-            <li><a href="/admin_product">제품 관리</a></li>
+            <li><a href=<c:url value="/admin/adminmember"/> class="adminSideActive">회원 관리</a></li>
+            <li><a href=<c:url value="/admin/adminnotice"/>>공지사항 관리</a></li>
         </ul>
     </div>
     <!-- 메인 -->
@@ -35,19 +31,19 @@
         <div class="adminDiv">
             정렬
             <select class="size" name="order_select" id="order_select">
-                <option value="id_asc" selected>아이디 오름차순</option>
+                <option value="id_asc">아이디 오름차순</option>
                 <option value="id_desc">아이디 내림차순</option>
-                <option value="join_date_asc">가입일 오름차순</option>
-                <option value="join_date_desc">가입일 내림차순</option>
+                <option value="joinDate_asc">가입일 오름차순</option>
+                <option value="joinDate_desc">가입일 내림차순</option>
             </select>
         </div>
         <div class="adminDiv2" id="tableTitle">
-            <div>회원목록 1건</div>
+            <div id="listcnt">${listcnt}</div>
             <div>한페이지 행수
                 <select class="size" name="page_select" id="page_select">
-                    <option value="page10" selected>10개씩 보기</option>
-                    <option value="page10">20개씩 보기</option>
-                    <option value="page10">50개씩 보기</option>
+                    <option value="all">전체 보기</option>
+                    <option value="5">5개씩 보기</option>
+                    <option value="10">10개씩 보기</option>
                 </select>
             </div>
         </div>
@@ -83,6 +79,7 @@
 <script>
     let adminmem = {
         init: function () {
+            //검색옵션
             let category='all';
             $("select[name=category]").change(function(){
                 category = $(this).val();
@@ -99,6 +96,33 @@
                 }else{
                     adminmem.searchword(category, searchWord);
                 }
+            });
+
+            //정렬 옵션
+            let sortoption = 'id_asc';
+            let sortstandard = 'Id';
+            let sortorder = 'asc';
+            $("select[name=order_select]").change(function(){
+                sortoption = $(this).val();
+                if(sortoption=='id_asc'){
+                    sortstandard='id';
+                    sortorder = 'asc';
+                }else if(sortoption=='id_desc') {
+                    sortstandard = 'id';
+                    sortorder = 'desc';
+                }else if(sortoption=='joinDate_asc'){
+                    sortstandard='join_date';
+                    sortorder='asc';
+                }else if(sortoption=='joinDate_desc'){
+                    sortstandard='join_date';
+                    sortorder='desc';
+                }
+                adminmem.orderingoption(sortstandard, sortorder);
+            });
+            let sortcnt = 'all';
+            $("select[name=page_select]").change(function(){
+                sortcnt = $(this).val();
+                adminmem.searchcnt(sortcnt);
             });
         },
         searchword:function (category,searchWord){
@@ -119,6 +143,31 @@
                 url:'<c:url value="/admin/searchtotal"/>',
                 data:{
                     "word":searchWord
+                },
+                success:(res)=>{
+                    adminmem.adding(res);
+                },
+                error:(e)=>{console.log(e)}
+            })
+        },
+        orderingoption:function(sortstandard, sortorder){
+            $.ajax({
+                url:'<c:url value="/admin/searchorder"/>',
+                data:{
+                    "standard":sortstandard,
+                    "sortorder":sortorder
+                },
+                success:(res)=>{
+                    adminmem.adding(res);
+                },
+                error:(e)=>{console.log(e)}
+            })
+        },
+        searchcnt:function(sortcnt){
+            $.ajax({
+                url:'<c:url value="/admin/searchcnt"/>',
+                data:{
+                    "cnt":sortcnt
                 },
                 success:(res)=>{
                     adminmem.adding(res);
@@ -153,6 +202,9 @@
             }
             const element = document.getElementById('myTable');
             element.innerHTML = result;
+            let totalcnt = '회원목록 '+res.length+'건';
+            const membercnt = document.getElementById('listcnt');
+            membercnt.innerHTML = totalcnt;
         }
     };
     $(function () {

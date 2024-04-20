@@ -20,4 +20,9 @@ public interface MemberRepository extends TestRepository<String, MemberDto> {
     List<MemberDto> selectResult(@Param("category") String category, @Param("word") String word) throws Exception;
     //전체에서 찾기
     List<MemberDto> selectResultIntotal(@Param("word") String word) throws Exception;
+    //선택한 순서로 결과 도출
+    List<MemberDto> selectResultsort(@Param("standard") String standard, @Param("sortorder") String sortorder) throws Exception;
+    //선택한 개수로 결과 도출
+    List<MemberDto> selectResultcnt(@Param("cnt") String cnt) throws Exception;
+
 }

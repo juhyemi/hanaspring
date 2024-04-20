@@ -7,14 +7,10 @@
     <!-- 사이드메뉴 -->
     <div id="adminSide">
         <ul>
-            <li><a href="/admin/adminmember">회원 관리</a></li>
+            <li><a href=<c:url value="/admin/adminmember"/>>회원 관리</a></li>
             <li>
-                <a href="/admin/adminnotice" class="adminSideActive">공지사항 관리</a>
+                <a href=<c:url value="/admin/adminnotice"/> class="adminSideActive">공지사항 관리</a>
             </li>
-            <li><a href="/admin_one2one">1:1문의 관리</a></li>
-            <li><a href="/admin_qna">묻고답하기 관리</a></li>
-            <li><a href="/admin_faq">FAQ 관리</a></li>
-            <li><a href="/admin_product">제품 관리</a></li>
         </ul>
     </div>
     <!-- 메인 -->
@@ -25,10 +21,10 @@
         <div class="adminDiv">
             검색 옵션
             <select name="search_select" id="search_select">
-                <option value="all" selected>전체</option>
+                <option value="all">전체</option>
                 <option value="title">제목</option>
                 <option value="content">내용</option>
-                <option value="id">작성자아이디</option>
+                <option value="id">작성자 아이디</option>
             </select>
             <input
                     type="text"
@@ -83,17 +79,7 @@
         </div>
 
         <div class="pageNav adminDiv2">
-            <div></div>
-            <div>
-                <a href="/admin_notice?page=1">처음</a>
-                <a href="/admin_notice?page=1">이전</a>
-                <a href="/admin_notice?page=1">1</a>
-                <a href="/admin_notice?page=2">2</a>
-                <a href="/admin_notice?page=3">3</a>
-                <a href="/admin_notice?page=2">다음</a>
-                <a href="/admin_notice?page=3">마지막</a>
-            </div>
-            <div><a href="/admin_notice_write">공지글 쓰기</a></div>
+            <div><a href=<c:url value="/admin/writepage"/>>공지글 쓰기</a></div>
         </div>
     </div>
 </div>

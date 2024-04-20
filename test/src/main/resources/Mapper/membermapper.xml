@@ -27,13 +27,20 @@
         values(0,#{memberId},#{memberPw},#{memberName},#{memberEmail},#{memberEmailReceive},#{memberPwQuestion},#{memberPwAnswer},#{memberGender},#{memberBirthDate},now())
     </insert>
     <select id="selectResult" parameterType="String" resultType="memberDto">
-        SELECT * FROM COMPANY_MEMBER WHERE MEMBER_${category} like CONCAT('%', #{word}, '%')
+        SELECT * FROM COMPANY_MEMBER WHERE LOWER(MEMBER_${category}) like CONCAT('%', #{word}, '%')
     </select>
     <select id="selectResultIntotal" parameterType="String" resultType="memberDto">
         SELECT * FROM COMPANY_MEMBER
-        WHERE MEMBER_ID LIKE CONCAT('%', #{word}, '%')
-        OR MEMBER_NAME LIKE CONCAT('%', #{word}, '%')
-        OR MEMBER_EMAIL LIKE CONCAT('%', #{word}, '%')
+        WHERE LOWER(MEMBER_ID) LIKE CONCAT('%', #{word}, '%')
+        OR LOWER(MEMBER_NAME) LIKE CONCAT('%', #{word}, '%')
+        OR LOWER(MEMBER_EMAIL) LIKE CONCAT('%', #{word}, '%')
     </select>
-
+    <select id="selectResultsort" parameterType="String" resultType="memberDto">
+        SELECT * FROM COMPANY_MEMBER
+        ORDER BY MEMBER_${standard} ${sortorder}
+    </select>
+    <select id="selectResultcnt" parameterType="String" resultType="memberDto">
+        SELECT * FROM COMPANY_MEMBER
+        LIMIT ${cnt}
+    </select>
 </mapper>

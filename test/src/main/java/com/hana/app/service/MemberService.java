@@ -56,4 +56,10 @@ public class MemberService implements TestService<String, MemberDto> {
     public List<MemberDto> getSearchtotal(String word) throws Exception{
         return memberRepository.selectResultIntotal(word);
     }
+    public List<MemberDto> getsearchsort(String standard,String sortorder) throws Exception{
+        return memberRepository.selectResultsort(standard, sortorder);
+    }
+    public List<MemberDto> getsearchcnt(String cnt) throws Exception{
+        return memberRepository.selectResultcnt(cnt);
+    }
 }
