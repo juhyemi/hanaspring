@@ -4,6 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hana.app.repository.MemberRepository">
 
+    <select id="select" resultType="memberDto">
+        SELECT * FROM company_member
+    </select>
     <select id="selectOne" parameterType="String" resultType="memberDto">
         SELECT * FROM company_member WHERE member_id = #{id}
     </select>
@@ -23,6 +26,14 @@
         insert into company_member
         values(0,#{memberId},#{memberPw},#{memberName},#{memberEmail},#{memberEmailReceive},#{memberPwQuestion},#{memberPwAnswer},#{memberGender},#{memberBirthDate},now())
     </insert>
-
+    <select id="selectResult" parameterType="String" resultType="memberDto">
+        SELECT * FROM COMPANY_MEMBER WHERE MEMBER_${category} like CONCAT('%', #{word}, '%')
+    </select>
+    <select id="selectResultIntotal" parameterType="String" resultType="memberDto">
+        SELECT * FROM COMPANY_MEMBER
+        WHERE MEMBER_ID LIKE CONCAT('%', #{word}, '%')
+        OR MEMBER_NAME LIKE CONCAT('%', #{word}, '%')
+        OR MEMBER_EMAIL LIKE CONCAT('%', #{word}, '%')
+    </select>
 
 </mapper>

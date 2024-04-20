@@ -78,42 +78,6 @@
                     <td>admin</td>
                     <td>2024-04-09</td>
                 </tr>
-                <tr
-                        onclick="location.href='/admin_notice_view?notice_idx=4';"
-                        style="cursor: pointer"
-                >
-                    <td>2</td>
-                    <td>타이틀1</td>
-                    <td>admin</td>
-                    <td>2024-04-08</td>
-                </tr>
-                <tr
-                        onclick="location.href='/admin_notice_view?notice_idx=3';"
-                        style="cursor: pointer"
-                >
-                    <td>3</td>
-                    <td>타이틀1</td>
-                    <td>admin</td>
-                    <td>2024-04-07</td>
-                </tr>
-                <tr
-                        onclick="location.href='/admin_notice_view?notice_idx=2';"
-                        style="cursor: pointer"
-                >
-                    <td>4</td>
-                    <td>타이틀1</td>
-                    <td>admin</td>
-                    <td>2024-04-07</td>
-                </tr>
-                <tr
-                        onclick="location.href='/admin_notice_view?notice_idx=1';"
-                        style="cursor: pointer"
-                >
-                    <td>5</td>
-                    <td>타이틀1</td>
-                    <td>admin</td>
-                    <td>2024-04-05</td>
-                </tr>
                 </tbody>
             </table>
         </div>

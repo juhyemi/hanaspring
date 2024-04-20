@@ -2,6 +2,7 @@
 <!-- JSTL -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div id="adminMain">
     <!-- 사이드메뉴 -->
@@ -22,15 +23,14 @@
         </div>
         <div class="adminDiv">
             검색 옵션
-            <select name="search_select" id="search_select">
-                <option value="all" selected>전체</option>
+            <select name="category" id="category">
+                <option value="all">전체</option>
                 <option value="id">아이디</option>
                 <option value="name">성명</option>
                 <option value="email">이메일</option>
-                <option value="address">주소</option>
             </select>
-            <input type="text" name="search_keyword" id="search_keyword" value="">
-            <input type="image" src="../img/community/search.gif">
+            <input type="text" name="searchWord" id="searchWord" value="">
+            <input type="image" id="btn_search" src="../img/community/search.gif">
         </div>
         <div class="adminDiv">
             정렬
@@ -51,7 +51,7 @@
                 </select>
             </div>
         </div>
-        <div class="">
+        <div id="myTable">
             <table class="adminTable">
                 <thead>
                 <tr>
@@ -64,34 +64,100 @@
                 </tr>
                 </thead>
                 <tbody>
-
-                <tr>
-                    <td>hong</td>
-                    <td>홍길동</td>
-                    <td>test@gmail.com</td>
-                    <td>2000-01-01</td>
-                    <td>2024-04-09</td>
-                    <td><button id="sendEmail">이메일보내기</button></td>
-                </tr>
-
-
+                <c:forEach var="m" items="${mList}">
+                    <tr>
+                        <td>${m.memberId}</td>
+                        <td>${m.memberName}</td>
+                        <td>${m.memberEmail}</td>
+                        <td>${m.memberBirthDate}</td>
+                        <td><fmt:formatDate  value="${m.memberJoinDate}" pattern="yyyy-MM-dd" /></td>
+                        <td><button id="sendEmail">이메일보내기</button></td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>
-
-        <div class="pageNav adminDiv2">
-            <div> </div>
-            <div>
-                <a href="/admin_member?page=1">처음</a>
-                <a href="/admin_member?page=1">이전</a>
-                <a href="/admin_member?page=1">1</a>
-                <a href="/admin_member?page=2">2</a>
-                <a href="/admin_member?page=3">3</a>
-                <a href="/admin_member?page=2">다음</a>
-                <a href="/admin_member?page=3">마지막</a>
-            </div>
-            <div> </div>
-        </div>
-
     </div>
 </div>
+
+<script>
+    let adminmem = {
+        init: function () {
+            let category='all';
+            $("select[name=category]").change(function(){
+                category = $(this).val();
+            });
+            $('#btn_search').click(function(){
+                let searchWord = $('#searchWord').val();
+                if(searchWord==''||searchWord==null){
+                    alert('검색어를 입력 하세요');
+                    $('#searchWord').focus();
+                    return;
+                }
+                if(category=="all"){
+                    adminmem.searchtotal(searchWord);
+                }else{
+                    adminmem.searchword(category, searchWord);
+                }
+            });
+        },
+        searchword:function (category,searchWord){
+            $.ajax({
+                url:'<c:url value="/admin/searchword"/>',
+                data:{
+                    "category":category,
+                    "word":searchWord
+                },
+                success:(res)=>{
+                    adminmem.adding(res);
+                },
+                error:(e)=>{console.log(e)}
+            })
+        },
+        searchtotal:function (searchWord){
+            $.ajax({
+                url:'<c:url value="/admin/searchtotal"/>',
+                data:{
+                    "word":searchWord
+                },
+                success:(res)=>{
+                    adminmem.adding(res);
+                },
+                error:(e)=>{console.log(e)}
+            })
+        },
+        adding:function(res){
+            let result = '검색 결과가 없습니다.';
+            if(res.length>0){
+                result=`<table class="adminTable"><thead><tr><th>아이디</th><th>성명</th><th>이메일</th><th>생일</th><th>가입일</th><th>임시비밀번호</th></tr></thead><tbody>`;
+                for(let i=0; i<res.length; i++){
+                    result+=`<tr><td>`;
+                    result+=res[i].memberId;
+                    result+=`</td><td>`;
+                    result+=res[i].memberName;
+                    result+=`</td><td>`;
+                    result+=res[i].memberEmail;
+                    result+=`</td><td>`;
+                    result+=res[i].memberBirthDate;
+                    result+=`</td><td>`;
+                    const memberJoinDate = new Date(res[i].memberJoinDate);
+                    // 날짜를 yyyy-mm-dd 형식으로 포맷팅
+                    const year = memberJoinDate.getFullYear();
+                    const month = String(memberJoinDate.getMonth() + 1).padStart(2, '0');
+                    const day = String(memberJoinDate.getDate()).padStart(2, '0');
+                    const formattedDate = year+`-`+month+`-`+day;
+                    result+=formattedDate;
+                    result+=`</td><td><button id="sendEmail">이메일보내기</button></td></tr>`;
+                }
+                result+=`</tbody></table>`
+            }
+            const element = document.getElementById('myTable');
+            element.innerHTML = result;
+        }
+    };
+    $(function () {
+        adminmem.init();
+    });
+
+
+</script>

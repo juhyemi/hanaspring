@@ -55,7 +55,6 @@
         <div><p>The design and maintenance are excellent.</p></div>
     </div>
     <div class="loginMain">
-        <form action="adminLoginAction" method="post">
             <table class="main1">
                 <tr>
                     <td>
@@ -63,21 +62,18 @@
                         비밀번호
                     </td>
                     <td>
-                        <input type="text" name="member_id" /> <br />
-                        <input type="text" name="member_pw" />
+                        <input type="text" id="loginID" name="member_id" /> <br />
+                        <input type="text" id="loginPW" name="member_pw" />
                     </td>
                     <td>
                         <input
                                 type="image"
-                                class="loginImg"
-                                name="submit"
-                                value="submit"
+                                id="btn_login"
                                 src='<c:url value="/img/member/btn_login.gif"/>'
                         />
                     </td>
                 </tr>
             </table>
-        </form>
     </div>
 </div>
 
@@ -111,30 +107,48 @@
 </div>
 
 <script>
-    // back to top 기능
-    $(document).ready(function () {
-        $(window).scroll(function () {
-            if ($(this).scrollTop() > 50) {
-                console.log("fadeIn");
-                $("#back-to-top").fadeIn();
-            } else {
-                console.log("fadeOut");
-                $("#back-to-top").fadeOut();
-            }
-        });
-        // scroll body to 0px on click
-        $("#back-to-top").click(function () {
-            console.log("click");
-            $("#back-to-top").tooltip("hide");
-            $("body,html").animate(
-                {
-                    scrollTop: 0,
-                },
-                500
-            );
-            return false;
-        });
-        $("#back-to-top").tooltip("show");
+    let adminLogin = {
+        init: function () {
+            $('#btn_login').click(()=>{
+                let id = $('#loginID').val();
+                let pwd = $('#loginPW').val();
+                if(id==''||id==null){
+                    alert('ID를 입력 하세요');
+                    return;
+                }
+                if(pwd==''||pwd==null){
+                    alert('PW를 입력 하세요');
+                    return;
+                }
+                $.ajax({
+                    url:'<c:url value="/admin/loginimpl"/>',
+                    data:{
+                        "id":id,
+                        "pwd":pwd
+                    },
+                    success:(result)=>{
+                        let msg = '로그인 되었습니다.';
+                        if(result=='1'){
+                            msg = '아이디가 존재하지 않습니다.';
+                            alert(msg);
+                            return;
+                        }
+                        if(result=='2'){
+                            msg = '비밀번호가 다릅니다';
+                            alert(msg);
+                            return;
+                        }
+                        if(result=='0'){
+                            alert(msg);
+                            window.location.href='<c:url value="/admin/adminmember"/>';
+                        }
+                    }
+                })
+            });
+        }
+    };
+    $(function () {
+        adminLogin.init();
     });
 </script>
 </body>
