@@ -64,7 +64,8 @@
                     "content":noticeContent
                 },
                 success:(res)=>{
-                    //adminmem.adding(res);
+                    alert('공지사항이 등록되었습니다.');
+                    window.location.href=`<c:url value="/admin/adminnotice"/>`;
                 },
                 error:(e)=>{console.log(e)}
             })

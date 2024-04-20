@@ -16,4 +16,21 @@
         INSERT INTO COMPANY_NOTICE
         VALUES(0,#{noticeTitle},#{noticeContent},#{noticeMemberId},now())
     </insert>
+    <select id="selectResultIntotal" parameterType="String" resultType="noticeDto">
+        SELECT * FROM COMPANY_NOTICE
+        WHERE LOWER(NOTICE_TITLE) LIKE CONCAT('%', #{keyword}, '%')
+           OR LOWER(NOTICE_CONTENT) LIKE CONCAT('%', #{keyword}, '%')
+           OR LOWER(NOTICE_MEMBER_ID) LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+    <update id="update" parameterType="noticeDto">
+        update company_notice set notice_content=#{noticeContent} where notice_idx=#{noticeIdx};
+    </update>
+    <select id="selectResultsort" parameterType="String" resultType="noticeDto">
+        SELECT * FROM COMPANY_NOTICE
+        ORDER BY NOTICE_${standard} ${sortorder}
+    </select>
+    <select id="selectResultcnt" parameterType="String" resultType="noticeDto">
+        SELECT * FROM COMPANY_NOTICE
+                          LIMIT ${cnt}
+    </select>
 </mapper>

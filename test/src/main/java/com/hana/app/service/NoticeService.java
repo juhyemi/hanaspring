@@ -43,6 +43,14 @@ public class NoticeService implements TestService<String, NoticeDto> {
     public List<NoticeDto> getSearch(String category, String word) throws Exception{
         return noticeRepository.selectResult(category,word);
     }
-
+    public List<NoticeDto> noticetotal(String keyword) throws Exception{
+        return noticeRepository.selectResultIntotal(keyword);
+    }
+    public List<NoticeDto> getsearchsort(String standard,String sortorder) throws Exception{
+        return noticeRepository.selectResultsort(standard, sortorder);
+    }
+    public List<NoticeDto> getsearchcnt(String cnt) throws Exception{
+        return noticeRepository.selectResultcnt(cnt);
+    }
 
 }

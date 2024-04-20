@@ -2,6 +2,7 @@
 <!-- JSTL -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div id="adminMain">
     <!-- 사이드메뉴 -->
@@ -24,37 +25,32 @@
                 <option value="all">전체</option>
                 <option value="title">제목</option>
                 <option value="content">내용</option>
-                <option value="id">작성자 아이디</option>
+                <option value="member_id">작성자 아이디</option>
             </select>
-            <input
-                    type="text"
-                    name="search_keyword"
-                    id="search_keyword"
-                    value=""
-            />
-            <input type="image" src="../img/community/search.gif" />
+            <input type="text" name="keyword" id="keyword"/>
+            <input type="image" id="btn_search" src="../img/community/search.gif" />
         </div>
         <div class="adminDiv">
             정렬
             <select class="size" name="order_select" id="order_select">
-                <option value="id_asc" selected>아이디 오름차순</option>
-                <option value="id_desc">아이디 내림차순</option>
-                <option value="reg_date_asc">등록일 오름차순</option>
-                <option value="reg_date_desc">등록일 내림차순</option>
+                <option value="member_id_asc">아이디 오름차순</option>
+                <option value="member_id_desc">아이디 내림차순</option>
+                <option value="date_asc">작성일 오름차순</option>
+                <option value="date_desc">작성일 내림차순</option>
             </select>
         </div>
         <div class="adminDiv2" id="tableTitle">
-            <div>목록 10건</div>
+            <div id="listcnt">${cnt}</div>
             <div>
                 한페이지 행수
                 <select class="size" name="page_select" id="page_select">
-                    <option value="page10" selected>10개씩 보기</option>
-                    <option value="page10">20개씩 보기</option>
-                    <option value="page10">50개씩 보기</option>
+                    <option value="all" >전체 보기</option>
+                    <option value="5">5개씩 보기</option>
+                    <option value="10">10개씩 보기</option>
                 </select>
             </div>
         </div>
-        <div class="">
+        <div id="resultTable">
             <table class="adminTable">
                 <thead>
                 <tr>
@@ -65,15 +61,17 @@
                 </tr>
                 </thead>
                 <tbody>
+                <c:forEach var="n" items="${nList}" varStatus="status">
                 <tr
-                        onclick="location.href='/admin_notice_view?notice_idx=5';"
+                        onclick="location.href='<c:url value="/admin/adminnoticeview"/>/${n.noticeIdx}';"
                         style="cursor: pointer"
                 >
-                    <td>1</td>
-                    <td>타이틀1</td>
-                    <td>admin</td>
-                    <td>2024-04-09</td>
+                    <td>${status.index+1}</td>
+                    <td>${n.noticeTitle}</td>
+                    <td>${n.noticeMemberId}</td>
+                    <td><fmt:formatDate value="${n.noticeDate}" pattern="yyyy-MM-dd" /></td>
                 </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>
@@ -84,29 +82,138 @@
     </div>
 </div>
 <script>
-    // back to top 기능
-    $(document).ready(function () {
-        $(window).scroll(function () {
-            if ($(this).scrollTop() > 50) {
-                console.log("fadeIn");
-                $("#back-to-top").fadeIn();
-            } else {
-                console.log("fadeOut");
-                $("#back-to-top").fadeOut();
-            }
-        });
-        // scroll body to 0px on click
-        $("#back-to-top").click(function () {
-            console.log("click");
-            $("#back-to-top").tooltip("hide");
-            $("body,html").animate(
-                {
-                    scrollTop: 0,
+    let adminnotice = {
+        init: function () {
+            //검색옵션
+            let category='all';
+            $("select[name=search_select]").change(function(){
+                category = $(this).val();
+            });
+            $('#btn_search').click(function(){
+                let keyword = $('#keyword').val();
+                if(keyword==''||keyword==null){
+                    alert('검색어를 입력 하세요');
+                    $('#keyword').focus();
+                    return;
+                }
+                if(category=="all"){
+                    adminnotice.searchtotal(keyword);
+                }else{
+                    adminnotice.searchword(category, keyword);
+                }
+            });
+            //정렬 옵션
+            let sortoption = 'member_id_asc';
+            let sortstandard = 'member_id';
+            let sortorder = 'asc';
+            $("select[name=order_select]").change(function(){
+                sortoption = $(this).val();
+                if(sortoption=='member_id_asc'){
+                    sortstandard='member_id';
+                    sortorder = 'asc';
+                }else if(sortoption=='member_id_desc') {
+                    sortstandard = 'member_id';
+                    sortorder = 'desc';
+                }else if(sortoption=='date_asc'){
+                    sortstandard='date';
+                    sortorder='asc';
+                }else if(sortoption=='date_desc'){
+                    sortstandard='date';
+                    sortorder='desc';
+                }
+                adminnotice.orderingoption(sortstandard, sortorder);
+            });
+            let sortcnt = 'all';
+            $("select[name=page_select]").change(function(){
+                sortcnt = $(this).val();
+                adminnotice.searchcnt(sortcnt);
+            });
+        },
+        searchword:function (category,searchWord){
+            $.ajax({
+                url:'<c:url value="/admin/noticesearchword"/>',
+                data:{
+                    "category":category,
+                    "word":searchWord
                 },
-                500
-            );
-            return false;
-        });
-        $("#back-to-top").tooltip("show");
+                success:(res)=>{
+                    adminnotice.adding(res);
+                },
+                error:(e)=>{console.log(e)}
+            })
+        },
+        searchtotal:function (keyword){
+            $.ajax({
+                url:'<c:url value="/admin/noticetotal"/>',
+                data:{
+                    "keyword1":keyword
+                },
+                success:(res)=>{
+                    console.log(res);
+                    adminnotice.adding(res);
+                },
+                error:(e)=>{console.log(e)}
+            })
+        },
+        orderingoption:function(sortstandard, sortorder){
+            $.ajax({
+                url:'<c:url value="/admin/noticesearchorder"/>',
+                data:{
+                    "standard":sortstandard,
+                    "sortorder":sortorder
+                },
+                success:(res)=>{
+                    adminnotice.adding(res);
+                },
+                error:(e)=>{console.log(e)}
+            })
+        },
+        searchcnt:function(sortcnt){
+            $.ajax({
+                url:'<c:url value="/admin/noticesearchcnt"/>',
+                data:{
+                    "cnt":sortcnt
+                },
+                success:(res)=>{
+                    adminnotice.adding(res);
+                },
+                error:(e)=>{console.log(e)}
+            })
+        },
+        adding:function(res){
+            let result = '검색 결과가 없습니다.';
+            if(res.length>0&&res!=null){
+                result=`<table class="adminTable"><thead> <tr><th>글번호</th><th>제목</th><th>글쓴이</th><th>작성일</th></tr></thead><tbody>`;
+                for(let i=0; i<res.length; i++){
+                    result+=`<tr onclick="location.href='<c:url value="/admin/adminnoticeview"/>/`
+                    result+=res[i].noticeIdx;
+                    result+=`';"style="cursor: pointer"><td>`
+                    result+=(i+1);
+                    result+=`</td><td>`;
+                    result+=res[i].noticeTitle;
+                    result+=`</td><td>`;
+                    result+=res[i].noticeMemberId;
+                    result+=`</td><td>`;
+                    const noticeDa = new Date(res[i].noticeDate);
+                    const year = noticeDa.getFullYear();
+                    const month = String(noticeDa.getMonth() + 1).padStart(2, '0');
+                    const day = String(noticeDa.getDate()).padStart(2, '0');
+                    const formattedDate = year+`-`+month+`-`+day;
+                    result+=formattedDate;
+                    result+=`</td></tr>`;
+                }
+                result+=`</tbody></table>`;
+            }
+            const element = document.getElementById('resultTable');
+            element.innerHTML = result;
+            let totalcnt = '목록 '+res.length+'건';
+            const noticecnt = document.getElementById('listcnt');
+            noticecnt.innerHTML = totalcnt;
+        }
+    };
+    $(function () {
+        adminnotice.init();
     });
+
+
 </script>
